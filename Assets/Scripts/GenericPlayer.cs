@@ -10,7 +10,7 @@ public abstract class GenericPlayer : MonoBehaviour
     public float speed_bonus, firerate_bonus, reload_bonus, damage_bonus, hp_bonus, heal_bonus;
 
     //Alap statisztikak (amik nem szazalekosan lesznek novelne)
-    public float dodge = 0;     //annak az eselye hogy a jatekos megusszon egy sebzest (max: 100)
+    public int dodge = 0;     //annak az eselye hogy a jatekos megusszon egy sebzest (max: 100)
     public float xpGain = 1;    //szorzo a jatekos altal felvett tapasztalati pontokra 
     public int luck = 0;        //befolyasolja a fejlesztesi valasztasok soran elerheto opciok minoseget es egy picit megnoveli a kiteres eselyet is
     public int maxAmmo;
@@ -19,13 +19,15 @@ public abstract class GenericPlayer : MonoBehaviour
     public float xp = 0;
     public int currentLevel = 1;
     public float currentHp;
+    public float abilityCdTime;
 
-    private GameObject crosshair;
+    protected GameObject crosshair;
     private int currentAmmo;
+    protected bool abilityOnCd = false;
 
     private Rigidbody2D rb2D;
     private Vector2 movement;
-    private bool isGameActive;
+    private GameManager gameManager;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,11 +39,12 @@ public abstract class GenericPlayer : MonoBehaviour
         currentAmmo = maxAmmo;
         currentHp = hp_base;
 
-        isGameActive = GameObject.Find("GameManager").GetComponent<GameManager>().isGameActive;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         crosshair = GameObject.Find("Crosshair");
 
         StartCoroutine(Shoot());
+        StartCoroutine(Heal());
     }
 
     // Update is called once per frame
@@ -74,7 +77,7 @@ public abstract class GenericPlayer : MonoBehaviour
 
     IEnumerator Shoot()
     {
-        while (isGameActive)
+        while (gameManager.isGameActive)
         {
             if (currentAmmo == 0)
             {
@@ -98,15 +101,34 @@ public abstract class GenericPlayer : MonoBehaviour
             Vector2 posDiff = crosshair.transform.position - transform.position;
             float angle = Mathf.Atan2(posDiff.y, posDiff.x) * Mathf.Rad2Deg;
 
-            //Debug.Log("Lottem remaining: " + currentAmmo);
             Bullet bullet = Instantiate(bulletSprite, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)).GetComponent<Bullet>();
             currentAmmo--;
             bullet.damage *= 1 + damage_bonus;
-            bullet.startPos = transform.position;
+        }
+    }
+
+    IEnumerator Heal() {
+        while (gameManager.isGameActive) {
+            float heal = (1 + heal_bonus) * heal_base;
+            float maxHp = (1 + hp_bonus) * hp_base;
+
+            if (currentHp + heal > maxHp) {
+                currentHp = maxHp;
+            } else {
+                currentHp += heal;
+            }
+
+            yield return new WaitForSeconds(1);
         }
     }
 
     public abstract void Ability();
+
+    protected IEnumerator ResetAbilityCd() {
+        yield return new WaitForSeconds(abilityCdTime);
+
+        abilityOnCd = false;
+    }
 
     public void TakeDamage(float damage)
     {
@@ -124,7 +146,7 @@ public abstract class GenericPlayer : MonoBehaviour
         GenericDamage genericDamage = collision.GetComponent<GenericDamage>();
         if (genericDamage && (genericDamage.targetType == GenericDamage.Targets.All || genericDamage.targetType == GenericDamage.Targets.Player))
         {
-            if (dodge * 0.9 + luck * 0.05 < Random.Range(0f, 100f))
+            if (dodge * 0.9 + luck * 0.1 < Random.Range(0, 100))
             {
                 collision.gameObject.transform.Translate((transform.position - collision.transform.position).normalized * -10);
 
@@ -146,7 +168,7 @@ public abstract class GenericPlayer : MonoBehaviour
                 xp -= currentLevel * 2;
                 currentLevel++;
 
-                Debug.Log("LEVEL UP");
+                gameManager.LevelUpScreen();
             }
 
             Destroy(collision.gameObject);

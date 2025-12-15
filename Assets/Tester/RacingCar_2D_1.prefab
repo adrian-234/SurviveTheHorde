@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6435852754884392974}
   - component: {fileID: 156914244832104394}
   - component: {fileID: 1756670307260639823}
+  - component: {fileID: 2337169059450918489}
   m_Layer: 0
   m_Name: RacingCar_2D_1
   m_TagString: Player
@@ -28,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 346.07193, y: 319.7315, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -7961474550453330774, guid: 792e072dffa889344ab8506468668bb3, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -118,3 +119,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2337169059450918489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8345751517884992926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95a4e2023fb0d214f98c10e4c44bfba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRico
+  speed_base: 16
+  firerate_base: 1.2
+  reload_base: 2
+  hp_base: 20
+  heal_base: 0.2
+  speed_bonus: 0
+  firerate_bonus: 0
+  reload_bonus: 0
+  damage_bonus: 0
+  hp_bonus: 0
+  heal_bonus: 0
+  dodge: 0
+  xpGain: 1
+  luck: 0
+  maxAmmo: 5
+  minReloadTime: 0.05
+  bulletSprite: {fileID: 4926285100541691496, guid: 7e77830e4b08c4e43917c16ec52729e6, type: 3}
+  xp: 0
+  currentLevel: 1
+  currentHp: 0
+  abilityCdTime: 2
+  grenadePrefab: {fileID: 7195896891869795099, guid: 1d06e51e3ae29bb4a9375eadd9e6226f, type: 3}

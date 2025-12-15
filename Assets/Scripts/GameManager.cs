@@ -3,21 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
+[System.Serializable]
+public struct EnemyType //Ilyen EnemyType okkal vannak letarolva a kulonbozo ellenfelek azert, hogy ne kellejen mindig megadni a prefabet, hozzajuk csak a nevekut
+{
+    public string name;
+    public GameObject prefab;
+}
+
+[System.Serializable]
+public struct SpawnWave //Azt tarolja, hogy egy ellenfel tipust mikortol es meddig lehet spawnolni es mennyit lehet belole letenni egyszerre
+{
+    public string name; //az enemy neve amit spawnolni kell ennek meg kell egyeznie egy elem nevevel az enemies listabol
+    public int spawnStart, spawnEnd, minCount, maxCount;
+}
 
 public class GameManager : MonoBehaviour
 {
     private DataManager dataManager;
-    public List<GameObject> characters;
-    public GameObject player;
-    public List<GameObject> enemies;
+    private GameObject player;
+    public List<GameObject> characters; //Kulonbozo jatekos karakerek prefabjei
+    public List<EnemyType> enemies;     //Kulonbozo ellenfelekhez tartozo prefabek (nev - gameobject formaban)
+    public List<SpawnWave> spawnMap;    //Ez a lista tarolja, hogy mikor melyik ellenfelet lehet spawnolni es mennyit. spawnStart mezo erteke szerint novekvo sorrenben kell lennie
+    public float enemyScaleFactor;      //Ennyivel erosodnek az ellensegek minden perc utan
     public bool isGameActive = true;
+    public bool paused = false;
+    public GameObject levelUpContainer, pauseMenu;
+    public List<GameObject> levelUpCards;
 
     private TextMeshProUGUI currentLevelText;
-    private GameObject xpBar, hpBar, hpBarBg;
+    private GameObject xpBar, hpBar, hpBarBg, timer;
+    private TextMeshProUGUI damageText, mSpeedText, fRateText, rSpeedText, hpText, healText, dodgeText, luckText, xpText;
+    private int elapsedTime = 0;    //Kor kezdete eltelt ido masodpercben
+
+    private List<int> currentWaves = new(); //Ez a lista azert van, hogy konyebben es gyorsabban lehessen veletlen szeruen valasztani a lespawnolhato enemyk kozul
+    private int lastWaveIndex = 0;  //Annak az elemnek az indexe a spawnMap listabol ami meg nem kerult bele a currentWaves-be
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Time.timeScale = 1; //Biztosagi okokbol, mert ha kilep a jatekos a pause menuvel kilep es vissza jon egy uj korben akkor a timeScale 0 marad amikor vissza jon
+
         dataManager = DataManager.getInstance();
         if (!dataManager) //csak a konnyebb es gyorsabb teszteles miatt kell ez az if
         {
@@ -28,35 +55,114 @@ public class GameManager : MonoBehaviour
             player = Instantiate(characters[dataManager.selectedCharacterId], Vector3.zero,  characters[dataManager.selectedCharacterId].transform.rotation);
         }
 
-        StartCoroutine(SpawnEnemies());
-
-
+        //Kijelzo tetejen levo ui elemek
         currentLevelText = GameObject.Find("PlayerLevel").GetComponent<TextMeshProUGUI>();
         xpBar = GameObject.Find("XpProgressBar");
         hpBar = GameObject.Find("CurrentHp");
         hpBarBg = GameObject.Find("HpProgressBar");
+        timer = GameObject.Find("Timer");
+
         UpdateUI();
+        StartCoroutine(SpawnEnemies());
+        StartCoroutine(UpdateTimer());
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateUI();
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenClosePauseMenu();
+        }
+    }
+
+    public void OpenClosePauseMenu()
+    {
+        if (!paused)
+        {
+            PauseGame();
+
+            //muszaly a frissites elott megjelenitei mert kulonben a Find fuggvenyek nem talaljak meg a szovegeket es nem lehet oket frissiteni
+            pauseMenu.SetActive(true);
+
+            if (damageText == null)
+            {
+                GetStatsPanelTexts();
+            }
+
+            //update stat panel
+            GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
+
+            damageText.text = $"{(1 + gPlayer.damage_bonus) * 100}%";
+            mSpeedText.text = $"{(1 + gPlayer.speed_bonus) * 100}%";
+            fRateText.text = $"{(1 + gPlayer.firerate_bonus) * 100}%";
+            rSpeedText.text = $"{(1 + gPlayer.reload_bonus) * 100}%";
+            hpText.text = $"{(1 + gPlayer.hp_bonus) * 100}%";
+            healText.text = $"{(1 + gPlayer.heal_bonus) * 100}%";
+            dodgeText.text = $"{gPlayer.dodge}%";
+            luckText.text = $"{gPlayer.luck}%";
+            xpText.text = $"{gPlayer.xpGain * 100}%";
+        } else
+        {
+            UnpauseGame();
+            pauseMenu.SetActive(false);
+        }
+    }
+
+    //Jatekos statisztikajanak kiirasaert felelos ui elemek elmentesi kesobbi hasznalatert
+    private void GetStatsPanelTexts()
+    {
+        damageText = GameObject.Find("Stat field").GetComponent<TextMeshProUGUI>();
+        mSpeedText = GameObject.Find("Stat field (2)").GetComponent<TextMeshProUGUI>();
+        fRateText = GameObject.Find("Stat field (3)").GetComponent<TextMeshProUGUI>();
+        rSpeedText = GameObject.Find("Stat field (4)").GetComponent<TextMeshProUGUI>();
+        hpText = GameObject.Find("Stat field (5)").GetComponent<TextMeshProUGUI>();
+        healText = GameObject.Find("Stat field (6)").GetComponent<TextMeshProUGUI>();
+        dodgeText = GameObject.Find("Stat field (7)").GetComponent<TextMeshProUGUI>();
+        luckText = GameObject.Find("Stat field (8)").GetComponent<TextMeshProUGUI>();
+        xpText = GameObject.Find("Stat field (9)").GetComponent<TextMeshProUGUI>();
     }
 
     IEnumerator SpawnEnemies()
     {
         while(isGameActive)
         {
-            int radius = 80;
-            int randId = UnityEngine.Random.Range(0, enemies.Count);
-            float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
-            float randX = (float)Math.Cos(angle) * radius;
-            float randY = (float)Math.Sin(angle) * radius;
-            
-            Vector3 randPos = new Vector3(randX, randY);
-            Instantiate(enemies[randId], player.transform.position + randPos, enemies[randId].transform.rotation);
-            
+            //a currentWaves lista frissetese
+            currentWaves.RemoveAll(i => spawnMap[i].spawnEnd <= elapsedTime);
+            while (lastWaveIndex < spawnMap.Count && spawnMap[lastWaveIndex].spawnStart <= elapsedTime) {
+                currentWaves.Add(lastWaveIndex);
+                lastWaveIndex++;
+            }
+
+            if (currentWaves.Count > 0) {
+                //random enemy kisorsolasa
+                int randId = currentWaves[UnityEngine.Random.Range(0, currentWaves.Count)];
+                SpawnWave wave = spawnMap[randId];
+                GameObject enemyPrefab = enemies.Find(e => e.name == wave.name).prefab;
+                int randEnemyCount = UnityEngine.Random.Range(wave.minCount, wave.maxCount + 1);
+
+                if (enemyPrefab != null) {
+                    //tenyleges spawnolas
+                    for (int i = 0; i < randEnemyCount; i++) {
+                        int radius = 80;
+                        float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
+                        float randX = (float)Math.Cos(angle) * radius;
+                        float randY = (float)Math.Sin(angle) * radius;
+                        
+                        Vector3 randPos = new Vector3(randX, randY);
+                        var enemy = Instantiate(enemyPrefab, player.transform.position + randPos, enemyPrefab.transform.rotation).GetComponent<GenericEnemy>();
+
+                        //ellensegek felerositeso az eletelt ido alapjan 
+                        float multipliyer = 1 + enemyScaleFactor * (elapsedTime / 60);
+                        enemy.damage *= multipliyer;
+                        enemy.hp *= multipliyer;
+                    }
+                } else {
+                    Debug.LogError($"Nincs talalat az enemy nevere. Keresett nev: {wave.name}");
+                }
+            }
             
             yield return new WaitForSeconds(2.5f);
         }
@@ -79,9 +185,70 @@ public class GameManager : MonoBehaviour
         RectTransform rectTransform_hpBar = hpBar.GetComponent<RectTransform>();
         rectTransform_hpBar.sizeDelta = new Vector2(hpMaxWidth * hpRatio, rectTransform_hpBar.sizeDelta.y);
 
-        //A jatekos jelenlegi tapasztalati pontjainek megjelenitese
+        //A jatekos jelenlegi tapasztalati pontjainak megjelenitese
         RectTransform rectTransform_xpBar = xpBar.GetComponent<RectTransform>();
         float xpRatio = gPlayer.xp / (gPlayer.currentLevel * 2);
         rectTransform_xpBar.localScale = new Vector2(xpRatio , 1);
+    }
+
+    IEnumerator UpdateTimer()
+    {
+        while (isGameActive)
+        {
+            yield return new WaitForSeconds(1);
+
+            int minute = elapsedTime / 60;
+            int sec = elapsedTime % 60;
+            
+            string timerStr = "";
+            if (minute < 10)
+                timerStr += "0";
+            timerStr += minute;
+
+            timerStr += ":";
+
+            if (sec < 10)
+                timerStr += "0";
+            timerStr += sec;
+
+            timer.GetComponent<TextMeshProUGUI>().text = timerStr;
+            elapsedTime++;
+        }
+    }
+
+    public void LevelUpScreen()
+    {
+        PauseGame();
+
+        GenericPlayer player = this.player.GetComponent<GenericPlayer>();
+
+        int stop = levelUpCards.Count;
+        if (player.luck < 20)
+            stop--;
+
+        for (int i = 0; i < stop; i++)
+        {
+            levelUpCards[i].GetComponent<LevelupCardController>().RefreshCard();
+        }
+
+        levelUpContainer.SetActive(true);
+    }
+
+    public void LevelUpScreenEnd()
+    {
+        levelUpContainer.SetActive(false);
+        UnpauseGame();
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+        paused = true;
+    }
+
+    void UnpauseGame()
+    {
+        Time.timeScale = 1;
+        paused = false;
     }
 }

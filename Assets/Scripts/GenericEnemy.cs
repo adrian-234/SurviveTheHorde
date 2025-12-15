@@ -20,7 +20,8 @@ public class GenericEnemy : GenericDamage
     // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = (player.transform.position - transform.position).normalized * speed;
+        // rb.linearVelocity = (player.transform.position - transform.position).normalized * speed;
+        transform.Translate(speed * Time.deltaTime * (player.transform.position - transform.position).normalized);
     }
 
     public void TakeDamage(float damage)

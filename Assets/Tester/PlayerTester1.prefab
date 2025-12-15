@@ -81,7 +81,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -7961474550453330774, guid: 792e072dffa889344ab8506468668bb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   firerate_base: 1.2
   reload_base: 2
   hp_base: 20
-  heal_base: 0
+  heal_base: 0.2
   speed_bonus: 0
   firerate_bonus: 0
   reload_bonus: 0
@@ -152,6 +152,8 @@ MonoBehaviour:
   xp: 0
   currentLevel: 1
   currentHp: 0
+  abilityCdTime: 2
+  grenadePrefab: {fileID: 7195896891869795099, guid: 1d06e51e3ae29bb4a9375eadd9e6226f, type: 3}
 --- !u!61 &-4591657304558217870
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -169,7 +171,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 10
+  m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -186,7 +188,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.0096989, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -196,5 +198,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 16.82, y: 10.47}
+  m_Size: {x: 14.800602, y: 10.47}
   m_EdgeRadius: 0

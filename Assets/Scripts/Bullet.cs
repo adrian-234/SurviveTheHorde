@@ -5,18 +5,18 @@ public class Bullet : GenericDamage
 {
     public float range; //Milyen messze tud menni a lovedek
     public float speed; //Milyen gyors a lovedek
-    /*public float damage; //Mennyit sebez a lovedek(ezt a player script allitja be amikor letrehozza a lovedeket)*/
-    public Vector3 startPos; //Az a pozicio ahonnan kilottek a lovedeket
+    private Vector3 startPos; //Az a pozicio ahonnan kilottek a lovedeket
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((startPos - transform.position).magnitude >= range)
+        if (Vector3.Distance(startPos, transform.position) >= range)
         {
             Destroy(gameObject);
         }

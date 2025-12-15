@@ -108,8 +108,8 @@ MonoBehaviour:
   damage: 4
   targetType: 1
   range: 75
-  speed: 30
-  startPos: {x: 0, y: 0, z: 0}
+  speed: 50
+  knockback: 200
 --- !u!50 &-7779420305523579448
 Rigidbody2D:
   serializedVersion: 5
