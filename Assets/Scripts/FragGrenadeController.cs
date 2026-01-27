@@ -6,6 +6,9 @@ public class FragGrenadeController : MonoBehaviour
     public float range;
     public float speed;
     public GameObject explosionPrefab;
+    public float explosionDamage_base;
+    public int explosionSize;
+    public float explosionKnockback;
     public GameObject fragPrefab;
     public int fragCount;
 
@@ -26,7 +29,9 @@ public class FragGrenadeController : MonoBehaviour
         if (Vector3.Distance(startPos, transform.position) >= range || Vector3.Distance(targetPos, transform.position) < 1)
         {
             var explosion = Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation).GetComponent<ExplosionController>();
-            explosion.damage *= damage_bonus;
+            explosion.damage = explosionDamage_base * damage_bonus;
+            explosion.knockback = explosionKnockback;
+            explosion.size = explosionSize;
 
             for(int i = 0; i < fragCount; i++) {
                 var frag = Instantiate(fragPrefab, transform.position, Random.rotation).GetComponent<Bullet>();

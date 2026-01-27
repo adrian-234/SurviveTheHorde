@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
-[System.Serializable]
+[Serializable]
 public struct EnemyType //Ilyen EnemyType okkal vannak letarolva a kulonbozo ellenfelek azert, hogy ne kellejen mindig megadni a prefabet, hozzajuk csak a nevekut
 {
     public string name;
     public GameObject prefab;
 }
 
-[System.Serializable]
+[Serializable]
 public struct SpawnWave //Azt tarolja, hogy egy ellenfel tipust mikortol es meddig lehet spawnolni es mennyit lehet belole letenni egyszerre
 {
     public string name; //az enemy neve amit spawnolni kell ennek meg kell egyeznie egy elem nevevel az enemies listabol
@@ -33,7 +32,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> levelUpCards;
 
     private TextMeshProUGUI currentLevelText;
-    private GameObject xpBar, hpBar, hpBarBg, timer;
+    private GameObject xpBar, hpBar, hpBarBg, timer, powerUpIcon;
     private TextMeshProUGUI damageText, mSpeedText, fRateText, rSpeedText, hpText, healText, dodgeText, luckText, xpText;
     private int elapsedTime = 0;    //Kor kezdete eltelt ido masodpercben
 
@@ -61,6 +60,7 @@ public class GameManager : MonoBehaviour
         hpBar = GameObject.Find("CurrentHp");
         hpBarBg = GameObject.Find("HpProgressBar");
         timer = GameObject.Find("Timer");
+        powerUpIcon = GameObject.Find("PowerUpIcon");
 
         UpdateUI();
         StartCoroutine(SpawnEnemies());
@@ -189,6 +189,9 @@ public class GameManager : MonoBehaviour
         RectTransform rectTransform_xpBar = xpBar.GetComponent<RectTransform>();
         float xpRatio = gPlayer.xp / (gPlayer.currentLevel * 2);
         rectTransform_xpBar.localScale = new Vector2(xpRatio , 1);
+
+        //Ability toltottseg jelzes
+        powerUpIcon.SetActive(!gPlayer.abilityOnCd);
     }
 
     IEnumerator UpdateTimer()

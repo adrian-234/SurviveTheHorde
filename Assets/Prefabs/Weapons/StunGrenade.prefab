@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7195896891869795099
+--- !u!1 &593503782935777583
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3267152201290492446}
-  - component: {fileID: 8459561203615045604}
-  - component: {fileID: 498325006551675885}
+  - component: {fileID: 7779220382500999551}
+  - component: {fileID: 2650302607727156272}
+  - component: {fileID: 5320864438914243304}
   m_Layer: 0
-  m_Name: FragGrenade
+  m_Name: StunGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3267152201290492446
+--- !u!4 &7779220382500999551
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195896891869795099}
+  m_GameObject: {fileID: 593503782935777583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.6, y: 74.5, z: 0}
-  m_LocalScale: {x: 1.9999999, y: 1.9999999, z: 1.9999999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8459561203615045604
+--- !u!212 &2650302607727156272
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195896891869795099}
+  m_GameObject: {fileID: 593503782935777583}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -80,33 +81,30 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 5454667799000161269, guid: 9f72afbdc6181f54a83501636ac6f980, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.16, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &498325006551675885
+--- !u!114 &5320864438914243304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195896891869795099}
+  m_GameObject: {fileID: 593503782935777583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d326c31e79cda2346b722e052dac2380, type: 3}
+  m_Script: {fileID: 11500000, guid: 02f9691b4382b40498860a9f88c0efaf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FragGrenadeController
-  damage_bonus: 1
+  m_EditorClassIdentifier: Assembly-CSharp::StunGrenade
   range: 40
   speed: 30
-  explosionPrefab: {fileID: 3465585070349356343, guid: e977f2a54954e81458683f41f7055454, type: 3}
-  fragPrefab: {fileID: 1800979419256730593, guid: 212f1cf0ac69f1843ba76b56f222cf6c, type: 3}
-  fragCount: 10
+  explosionPrefab: {fileID: 8758924145746013151, guid: 42f312473a7f5c5479b27d46c8940119, type: 3}
   targetPos: {x: 0, y: 0, z: 0}

@@ -20,14 +20,15 @@ public abstract class GenericPlayer : MonoBehaviour
     public int currentLevel = 1;
     public float currentHp;
     public float abilityCdTime;
+    public bool abilityOnCd = false;
 
     protected GameObject crosshair;
+    protected int pushbackForce = 10;
     private int currentAmmo;
-    protected bool abilityOnCd = false;
-
-    private Rigidbody2D rb2D;
-    private Vector2 movement;
-    private GameManager gameManager;
+    protected bool invincible = false;
+    protected Rigidbody2D rb2D;
+    protected Vector2 movement;
+    protected GameManager gameManager;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -68,7 +69,7 @@ public abstract class GenericPlayer : MonoBehaviour
 
         if (movement.x < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 180);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         } else
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -141,19 +142,21 @@ public abstract class GenericPlayer : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         GenericDamage genericDamage = collision.GetComponent<GenericDamage>();
         if (genericDamage && (genericDamage.targetType == GenericDamage.Targets.All || genericDamage.targetType == GenericDamage.Targets.Player))
         {
-            if (dodge * 0.9 + luck * 0.1 < Random.Range(0, 100))
+            collision.gameObject.transform.Translate((transform.position - collision.transform.position).normalized * -1 * pushbackForce);
+            if (!invincible)
             {
-                collision.gameObject.transform.Translate((transform.position - collision.transform.position).normalized * -10);
-
-                TakeDamage(genericDamage.damage);
-            } else
-            {
-                Debug.Log("Dodge volt");
+                if (dodge * 0.9 + luck * 0.1 < Random.Range(0, 100))
+                {
+                    TakeDamage(genericDamage.damage);
+                } else
+                {
+                    Debug.Log("Dodge volt");
+                }
             }
 
             return;

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1591248345085534205}
   - component: {fileID: 7365195792080371139}
   - component: {fileID: 6401948936895411774}
-  - component: {fileID: 8518273117514908324}
   - component: {fileID: -4591657304558217870}
+  - component: {fileID: -2394285627436952754}
   m_Layer: 0
-  m_Name: PlayerTester1
+  m_Name: PlayerRico
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,13 +30,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7365195792080371139
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,6 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -7961474550453330774, guid: 792e072dffa889344ab8506468668bb3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,7 +93,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &6401948936895411774
 Rigidbody2D:
@@ -120,40 +121,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8518273117514908324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5668303438930395528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a4e2023fb0d214f98c10e4c44bfba8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerRico
-  speed_base: 12
-  firerate_base: 1.2
-  reload_base: 2
-  hp_base: 20
-  heal_base: 0.2
-  speed_bonus: 0
-  firerate_bonus: 0
-  reload_bonus: 0
-  damage_bonus: 0
-  hp_bonus: 0
-  heal_bonus: 0
-  dodge: 0
-  xpGain: 1
-  luck: 0
-  maxAmmo: 5
-  minReloadTime: 0.2
-  bulletSprite: {fileID: 4926285100541691496, guid: 7e77830e4b08c4e43917c16ec52729e6, type: 3}
-  xp: 0
-  currentLevel: 1
-  currentHp: 0
-  abilityCdTime: 2
-  grenadePrefab: {fileID: 7195896891869795099, guid: 1d06e51e3ae29bb4a9375eadd9e6226f, type: 3}
 --- !u!61 &-4591657304558217870
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,7 +155,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1.0096989, y: 0}
+  m_Offset: {x: 1.0957584, y: -0.018418074}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -198,5 +165,39 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 14.800602, y: 10.47}
+  m_Size: {x: 14.974882, y: 10.498653}
   m_EdgeRadius: 0
+--- !u!114 &-2394285627436952754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5668303438930395528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a42993b51efcd4190ea51c6d90be0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_AbilityGrenade
+  speed_base: 14
+  firerate_base: 1
+  reload_base: 2
+  hp_base: 20
+  heal_base: 0.2
+  speed_bonus: 0
+  firerate_bonus: 0
+  reload_bonus: 0
+  damage_bonus: 0
+  hp_bonus: 0
+  heal_bonus: 0
+  dodge: 0
+  xpGain: 1
+  luck: 0
+  maxAmmo: 8
+  minReloadTime: 0.2
+  bulletSprite: {fileID: 4926285100541691496, guid: 7e77830e4b08c4e43917c16ec52729e6, type: 3}
+  xp: 0
+  currentLevel: 1
+  currentHp: 0
+  abilityCdTime: 5
+  grenadePrefab: {fileID: 7195896891869795099, guid: 1d06e51e3ae29bb4a9375eadd9e6226f, type: 3}

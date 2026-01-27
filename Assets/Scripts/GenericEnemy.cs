@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GenericEnemy : GenericDamage
@@ -6,11 +7,11 @@ public class GenericEnemy : GenericDamage
 
     public GameObject xpSprite;
 
-    private GameObject player;
-    private Rigidbody2D rb;   
+    protected GameObject player;
+    protected Rigidbody2D rb;   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -18,9 +19,8 @@ public class GenericEnemy : GenericDamage
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        // rb.linearVelocity = (player.transform.position - transform.position).normalized * speed;
         transform.Translate(speed * Time.deltaTime * (player.transform.position - transform.position).normalized);
     }
 
@@ -46,5 +46,18 @@ public class GenericEnemy : GenericDamage
 
             TakeDamage(genericDamage.damage);
         }
+    }
+
+    //Azert kell igy 2 fuggvennyel csinalni mert ha a FragController hivna meg egybol az IEnumerator-os fv-t akkor az megszakadni WaitForSeconds soran, mert a FragController megszunik kozben es igy a fv nem fejezodne be
+    public void Freeze(float time)
+    {
+        float normalSpeed = speed;
+        speed = 0;
+        StartCoroutine(ResetFreeze(time, normalSpeed));
+    }
+    IEnumerator ResetFreeze(float time, float speed)
+    {
+        yield return new WaitForSeconds(time);
+        this.speed = speed;
     }
 }
