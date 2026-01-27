@@ -29,7 +29,6 @@ public class Enemy_Exploder : GenericEnemy
             StartCoroutine(ChargeUp());
         } else if (animator.GetBool("PlayAnimation"))
         {
-            Debug.Log("Lealtittom az animaciot itt: " + gameObject.name);
             StopCoroutine(ChargeUp());
             animator.SetBool("PlayAnimation", false);
         }

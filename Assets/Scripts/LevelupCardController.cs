@@ -1,119 +1,79 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
-struct upgradeType
-{
-    public upgradeType(string n, int cV, int uV, int rV, int lV)
-    {
-        name = n;
-        commonValue = cV;
-        uncommonValue = uV;
-        rareValue = rV;
-        legendaryValue = lV;
-    }
-
-    public string name;
-    public int commonValue, uncommonValue, rareValue, legendaryValue;
-}
-
-[DefaultExecutionOrder(200)]
 public class LevelupCardController : MonoBehaviour
 {
-    private static Color commonColor = new Color32(255, 255, 255, 255);
-    private static Color uncommonColor = new Color32(3, 173, 0, 255);
-    private static Color rareColor = new Color32(39, 83, 233, 255);
-    private static Color legendaryColor = new Color32(197, 0, 0, 255);
-
-    private static int uncommonChance = 65;
-    private static int rareChance = 89;
-    private static int legendaryChance = 99;
-    private static List<upgradeType> upgradesList = new()
-    {
-        new upgradeType("Move speed", 1, 2, 3, 4),
-        new upgradeType("Fire rate", 1, 2, 5, 10),
-        new upgradeType("Reload speed", 2, 3, 5, 8),
-        new upgradeType("Damage", 2, 3, 4, 10),
-        new upgradeType("Health", 2, 4, 6, 10),
-        new upgradeType("Heal", 2, 4, 6, 10),
-        new upgradeType("Dodge", 1, 3, 5, 8),
-        new upgradeType("Xp gain", 3, 5, 8, 10),
-        new upgradeType("Luck", 2, 4, 8, 12),
-    };
-
     private static GenericPlayer player;
     private static GameManager gameManager;
-
+    private static LevelUpOptions options;
+    private TextMeshProUGUI[] texts;
+    private Image image;
     private string currentUpgrade;
     private int currentUpgradeValue;
-
-    private bool missedStart;
+    private bool missedStart = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (player == null)
+        if (!player)
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<GenericPlayer>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            options = GameObject.Find("LevelUpOptions").GetComponent<LevelUpOptions>();
         }
-
+        
+        texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+        image = gameObject.GetComponentsInChildren<Image>()[1];
         gameObject.GetComponent<Button>().onClick.AddListener(ApplySelected);
 
         if (missedStart)
         {
-            missedStart = false;
             RefreshCard();
-        } 
+        }
     }
 
     public void RefreshCard()
     {
-        if (player == null)
+        if (!didStart)
         {
             missedStart = true;
-            Start();
             return;
         }
 
-        int upgradeId = Random.Range(0, upgradesList.Count);
+        int upgradeId = Random.Range(0, options.options.Count);
         int rarity = Random.Range(0, 100);
         rarity += player.luck;
 
-        currentUpgrade = upgradesList[upgradeId].name;
+        currentUpgrade = options.options[upgradeId].name;
 
-        var texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+        //Fejlesztesi opcio nevenek es tipusanak kiirasa
         texts[0].text = currentUpgrade;
-
-        if (rarity >= legendaryChance)
+        if (rarity >= options.legendaryChance)
         {
-            currentUpgradeValue = upgradesList[upgradeId].legendaryValue;
-
-            texts[0].color = legendaryColor;
-            texts[1].color = legendaryColor;
-        } else if (rarity >= rareChance)
+            currentUpgradeValue = options.options[upgradeId].legendaryValue;
+            texts[0].color = options.legendaryColor;
+            texts[1].color = options.legendaryColor;
+        } else if (rarity >= options.rareChance)
         {
-            currentUpgradeValue = upgradesList[upgradeId].rareValue;
-
-            texts[0].color = rareColor;
-            texts[1].color = rareColor;
-        } else if (rarity >= uncommonChance)
+            currentUpgradeValue = options.options[upgradeId].rareValue;
+            texts[0].color = options.rareColor;
+            texts[1].color = options.rareColor;
+        } else if (rarity >= options.uncommonChance)
         {
-            currentUpgradeValue = upgradesList[upgradeId].uncommonValue;
-
-            texts[0].color = uncommonColor;
-            texts[1].color = uncommonColor;
+            currentUpgradeValue = options.options[upgradeId].uncommonValue;
+            texts[0].color = options.uncommonColor;
+            texts[1].color = options.uncommonColor;
         } else
         {
-            currentUpgradeValue = upgradesList[upgradeId].commonValue;
-
-            
-            texts[0].color = commonColor;
-            texts[1].color = commonColor;
+            currentUpgradeValue = options.options[upgradeId].commonValue;
+            texts[0].color = options.commonColor;
+            texts[1].color = options.commonColor;
         }
-
         texts[1].text = $"<b>+{currentUpgradeValue}%</b> {currentUpgrade}";
+
+        //Fejlesztesi opciohoz tartozo kep megjelenitese
+        image.sprite = options.options[upgradeId].imgSrc;
     }
 
     void ApplySelected()
