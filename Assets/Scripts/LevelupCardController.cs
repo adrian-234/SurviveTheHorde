@@ -9,6 +9,7 @@ public class LevelupCardController : MonoBehaviour
     private static LevelUpOptions options;
     private TextMeshProUGUI[] texts;
     private Image image;
+    private Animator animator;
     private string currentUpgrade;
     private int currentUpgradeValue;
     private bool missedStart = false;
@@ -24,7 +25,8 @@ public class LevelupCardController : MonoBehaviour
         }
         
         texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-        image = gameObject.GetComponentsInChildren<Image>()[1];
+        image = gameObject.GetComponentsInChildren<Image>()[2];
+        animator = gameObject.GetComponent<Animator>();
         gameObject.GetComponent<Button>().onClick.AddListener(ApplySelected);
 
         if (missedStart)
@@ -40,6 +42,7 @@ public class LevelupCardController : MonoBehaviour
             missedStart = true;
             return;
         }
+        //animator.ResetTrigger("Selected");
 
         int upgradeId = Random.Range(0, options.options.Count);
         int rarity = Random.Range(0, 100);
@@ -74,6 +77,8 @@ public class LevelupCardController : MonoBehaviour
 
         //Fejlesztesi opciohoz tartozo kep megjelenitese
         image.sprite = options.options[upgradeId].imgSrc;
+
+        //animator.SetTrigger("Flip");
     }
 
     void ApplySelected()
@@ -111,6 +116,9 @@ public class LevelupCardController : MonoBehaviour
                 player.luck += currentUpgradeValue;
                 break;
         }
+
+        //animator.ResetTrigger("Flip");
+        //animator.ResetTrigger("Selected");
 
         gameManager.LevelUpScreenEnd();
     }

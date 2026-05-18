@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Enemy_Exploder : GenericEnemy
@@ -10,28 +11,27 @@ public class Enemy_Exploder : GenericEnemy
     public float explosionDamage;
     public int explosionSize;
     public GameObject explosion;
-
-    private Animator animator;
+    private bool chargingUp = false;
 
     protected override void Start()
     {
         base.Start();
-        animator = gameObject.GetComponent<Animator>();
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if (!animator.GetBool("PlayAnimation") && Vector3.Distance(player.transform.position, transform.position) < detontationDistance)
+        if (!chargingUp && Vector3.Distance(player.transform.position, transform.position) < detontationDistance)
         {
-            animator.SetBool("PlayAnimation", true);
+            chargingUp = true;
             StartCoroutine(ChargeUp());
-        } else if (animator.GetBool("PlayAnimation"))
+        } else if (chargingUp && Vector3.Distance(player.transform.position, transform.position) > detontationDistance)
         {
             StopCoroutine(ChargeUp());
-            animator.SetBool("PlayAnimation", false);
+            chargingUp = false;
         }
+        animator.SetBool("ChargeUp", chargingUp);
     }
 
     IEnumerator ChargeUp()

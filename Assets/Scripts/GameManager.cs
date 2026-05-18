@@ -28,13 +28,14 @@ public class GameManager : MonoBehaviour
     public float enemyScaleFactor;      //Ennyivel erosodnek az ellensegek minden perc utan
     public bool isGameActive = true;
     public bool paused = false;
-    public GameObject levelUpContainer, pauseMenu;
+    public GameObject levelUpContainer, pauseMenu, gameoverScreen;
     public List<GameObject> levelUpCards;
+    public int killCoinValue, LevelupCoinValue, abilityCoinValue, bossCoinValue;
 
-    private TextMeshProUGUI currentLevelText;
     private GameObject xpBar, hpBar, hpBarBg, timer, powerUpIcon;
-    private TextMeshProUGUI damageText, mSpeedText, fRateText, rSpeedText, hpText, healText, dodgeText, luckText, xpText;
+    private TextMeshProUGUI currentLevelText, damageText, mSpeedText, fRateText, rSpeedText, hpText, healText, dodgeText, luckText, xpText;
     private int elapsedTime = 0;    //Kor kezdete eltelt ido masodpercben
+    public int killCounter, abilityCounter = 0;
 
     private List<int> currentWaves = new(); //Ez a lista azert van, hogy konyebben es gyorsabban lehessen veletlen szeruen valasztani a lespawnolhato enemyk kozul
     private int lastWaveIndex = 0;  //Annak az elemnek az indexe a spawnMap listabol ami meg nem kerult bele a currentWaves-be
@@ -52,6 +53,11 @@ public class GameManager : MonoBehaviour
         } else
         {
             player = Instantiate(characters[dataManager.selectedCharacterId], Vector3.zero,  characters[dataManager.selectedCharacterId].transform.rotation);
+            //permanent boostok betöltése
+            PermanentUpgradesData permanentUpgradesData = PermanentUpgradesData.getInstance();
+            GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
+            gPlayer.damage_bonus = permanentUpgradesData.GetUpgradeBoostByName("Damage");
+            gPlayer.reload_bonus = permanentUpgradesData.GetUpgradeBoostByName("Reload Speed");
         }
 
         //Kijelzo tetejen levo ui elemek
@@ -253,5 +259,24 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         paused = false;
+    }
+
+    public void GameoverScreen(bool isBossDead)
+    {
+        PauseGame();
+
+        gameoverScreen.SetActive(true);
+
+        GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
+
+        GameObject.Find("KillCounterText").GetComponent<TextMeshProUGUI>().text = killCounter.ToString();
+        GameObject.Find("PlayerLevelText").GetComponent<TextMeshProUGUI>().text = gPlayer.currentLevel.ToString();
+        GameObject.Find("AbilityUsedText").GetComponent<TextMeshProUGUI>().text = abilityCounter.ToString();
+        GameObject.Find("BossKilledText").GetComponent<TextMeshProUGUI>().text = isBossDead ? "1" : "0";
+
+        int coinsEarned = killCounter * killCoinValue + gPlayer.currentLevel * LevelupCoinValue + abilityCounter * abilityCoinValue + (isBossDead ? bossCoinValue : 0);
+        GameObject.Find("CoinsEarnedText").GetComponent<TextMeshProUGUI>().text = coinsEarned.ToString();
+
+        dataManager.SetCoins(dataManager.GetCoins() + coinsEarned);
     }
 }

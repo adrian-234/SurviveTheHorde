@@ -9,6 +9,7 @@ TagManager:
   - Damage_Player
   - Enemy
   - Collectible
+  - PermanentUpgradeCard
   layers:
   - Default
   - TransparentFX

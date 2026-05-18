@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class Enemy_Shooter : GenericEnemy
 {
     public GameObject projectile;
     public float shootCd;
     public float minPlayerDist;
+    private bool inDeadzone = false; 
+    private float deadzone = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
@@ -20,7 +23,31 @@ public class Enemy_Shooter : GenericEnemy
     {
         Vector3 targetPos = (transform.position - player.transform.position) / (Vector2.Distance(player.transform.position,transform.position) / minPlayerDist) + player.transform.position;
 
-        transform.Translate(speed * Time.deltaTime * (targetPos - transform.position).normalized);
+        inDeadzone = (targetPos - transform.position).magnitude < deadzone;
+
+        // transform.Translate(speed * Time.deltaTime * (targetPos - transform.position).normalized);
+        movement = (targetPos - transform.position).normalized;
+    }
+
+    protected override void FixedUpdate()
+    {
+        if (!inDeadzone && movement != Vector2.zero)
+        {
+            animator.SetBool("Walk", true);
+            if (movement.x < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            } else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+        } else
+        {
+            animator.SetBool("Walk", false);
+        }
+
+        //karakter mozgatasa 
+        rb.linearVelocity = speed * movement; 
     }
 
     IEnumerator Shoot()

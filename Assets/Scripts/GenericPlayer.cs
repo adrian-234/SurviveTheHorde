@@ -6,7 +6,7 @@ public abstract class GenericPlayer : MonoBehaviour
     //Alap statisztikak (amelyek majd a szazalekos alapon lesznek novelne)
     public float speed_base, firerate_base, reload_base, hp_base, heal_base;
 
-    //Bonusz statisztikak
+    //Bonusz statisztikak [0-1]
     public float speed_bonus, firerate_bonus, reload_bonus, damage_bonus, hp_bonus, heal_bonus;
 
     //Alap statisztikak (amik nem szazalekosan lesznek novelne)
@@ -29,6 +29,7 @@ public abstract class GenericPlayer : MonoBehaviour
     protected Rigidbody2D rb2D;
     protected Vector2 movement;
     protected GameManager gameManager;
+    private Animator animator;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +37,8 @@ public abstract class GenericPlayer : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        animator = gameObject.GetComponent<Animator>();
 
         currentAmmo = maxAmmo;
         currentHp = hp_base;
@@ -54,11 +57,19 @@ public abstract class GenericPlayer : MonoBehaviour
         float hInput = Input.GetAxis("Horizontal");
         float vInput = Input.GetAxis("Vertical");
         movement = new Vector2(hInput, vInput);
+        if (movement != Vector2.zero)
+        {
+            animator.SetBool("Walk", true);
+        } else
+        {
+            animator.SetBool("Walk", false);
+        }
 
         //Ability
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Ability();
+            gameManager.abilityCounter++;
         }
     }
 
@@ -138,7 +149,7 @@ public abstract class GenericPlayer : MonoBehaviour
         if (currentHp <= 0)
         {
             Debug.Log("GAME OVER");
-            //Destroy(gameObject);
+            gameManager.GameoverScreen(false);
         }
     }
 
