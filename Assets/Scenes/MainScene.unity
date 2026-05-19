@@ -1470,11 +1470,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PermanentUpgradesData
   permanentUpgrades:
   - name: Damage
-    levelCosts: 0a0000000f00000019000000
-    upgradeValues: 05000000080000000c000000
+    levelCosts: 140000002300000032000000
+    upgradeValues: 080000000f00000014000000
   - name: Reload Speed
-    levelCosts: 0a0000000f00000019000000
-    upgradeValues: 05000000080000000c000000
+    levelCosts: 0f0000001900000028000000
+    upgradeValues: 080000001000000019000000
+  - name: Move Speed
+    levelCosts: 0f0000001900000028000000
+    upgradeValues: 050000000c00000012000000
+  - name: Health
+    levelCosts: 140000002300000032000000
+    upgradeValues: 080000001000000014000000
+  - name: Heal
+    levelCosts: 0f0000001900000023000000
+    upgradeValues: 04000000080000000c000000
+  - name: Firerate
+    levelCosts: 140000001e00000028000000
+    upgradeValues: 080000001000000014000000
   damageUpgradeLevel: 0
   reloadSpeedUpgradeLevel: 0
   moveSpeedUpgradeLevel: 0

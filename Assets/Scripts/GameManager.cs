@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public GameObject levelUpContainer, pauseMenu, gameoverScreen;
     public List<GameObject> levelUpCards;
     public int killCoinValue, LevelupCoinValue, abilityCoinValue, bossCoinValue;
+    public int mapWidth, mapHeight;
 
     private GameObject xpBar, hpBar, hpBarBg, timer, powerUpIcon;
     private TextMeshProUGUI currentLevelText, damageText, mSpeedText, fRateText, rSpeedText, hpText, healText, dodgeText, luckText, xpText;
@@ -58,6 +59,11 @@ public class GameManager : MonoBehaviour
             GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
             gPlayer.damage_bonus = permanentUpgradesData.GetUpgradeBoostByName("Damage");
             gPlayer.reload_bonus = permanentUpgradesData.GetUpgradeBoostByName("Reload Speed");
+            gPlayer.firerate_bonus = permanentUpgradesData.GetUpgradeBoostByName("Firerate");
+            gPlayer.hp_bonus = permanentUpgradesData.GetUpgradeBoostByName("Health");
+            gPlayer.heal_bonus = permanentUpgradesData.GetUpgradeBoostByName("Heal");
+            gPlayer.speed_bonus = permanentUpgradesData.GetUpgradeBoostByName("Move Speed");
+
         }
 
         //Kijelzo tetejen levo ui elemek
@@ -86,6 +92,11 @@ public class GameManager : MonoBehaviour
 
     public void OpenClosePauseMenu()
     {
+        if (levelUpContainer.activeSelf)
+        {
+            return;
+        }
+
         if (!paused)
         {
             PauseGame();
@@ -152,13 +163,7 @@ public class GameManager : MonoBehaviour
                 if (enemyPrefab != null) {
                     //tenyleges spawnolas
                     for (int i = 0; i < randEnemyCount; i++) {
-                        int radius = 80;
-                        float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
-                        float randX = (float)Math.Cos(angle) * radius;
-                        float randY = (float)Math.Sin(angle) * radius;
-                        
-                        Vector3 randPos = new Vector3(randX, randY);
-                        var enemy = Instantiate(enemyPrefab, player.transform.position + randPos, enemyPrefab.transform.rotation).GetComponent<GenericEnemy>();
+                        var enemy = Instantiate(enemyPrefab, getRandomPos(), enemyPrefab.transform.rotation).GetComponent<GenericEnemy>();
 
                         //ellensegek felerositeso az eletelt ido alapjan 
                         float multipliyer = 1 + enemyScaleFactor * (elapsedTime / 60);
@@ -171,6 +176,22 @@ public class GameManager : MonoBehaviour
             }
             
             yield return new WaitForSeconds(2.5f);
+        }
+    }
+
+    private Vector3 getRandomPos()
+    {
+        int radius = 80;    //ennyire messzire spawnolnak az enemyk a playertol
+        float angle = UnityEngine.Random.Range(0f, 360f) * Mathf.Deg2Rad;
+        float randX = (float)Math.Cos(angle) * radius + player.transform.position.x;
+        float randY = (float)Math.Sin(angle) * radius + player.transform.position.y;
+
+        if (randX > mapWidth / -2 && randX < mapWidth / 2 && randY > mapHeight / -2 && randY < mapHeight / 2)
+        {
+            return new Vector3(randX, randY);
+        } else
+        {
+            return getRandomPos();
         }
     }
 

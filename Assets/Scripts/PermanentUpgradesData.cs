@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.IO;
 using System.Collections.Generic;
-using UnityEngine.AI;
 
 [Serializable]
     public struct PermanentUpgrade
@@ -79,6 +78,14 @@ public class PermanentUpgradesData : MonoBehaviour
             instance.healthUpgradeLevel = data.health;
             instance.healUpgradeLevel = data.heal;
             instance.firerateUpgradeLevel = data.firerate;
+        } else
+        {
+            instance.damageUpgradeLevel = 0;
+            instance.reloadSpeedUpgradeLevel = 0;
+            instance.moveSpeedUpgradeLevel = 0;
+            instance.healthUpgradeLevel = 0;
+            instance.healUpgradeLevel = 0;
+            instance.firerateUpgradeLevel = 0;
         }
     }
 
@@ -121,6 +128,13 @@ public class PermanentUpgradesData : MonoBehaviour
         {
             return 0.0f;
         }
-        return upgrade.upgradeValues[GetUpgradeLevelByName(name) - 1] / 100.0f;
+        int level = GetUpgradeLevelByName(name) - 1;
+        if (level == -1)
+        {
+            return 0;
+        } else
+        {
+            return upgrade.upgradeValues[level] / 100.0f;
+        }
     }
 }

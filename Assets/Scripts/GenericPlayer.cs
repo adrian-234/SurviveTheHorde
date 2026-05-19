@@ -153,8 +153,9 @@ public abstract class GenericPlayer : MonoBehaviour
         }
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D other)
     {
+        Collider2D collision = other.collider; 
         GenericDamage genericDamage = collision.GetComponent<GenericDamage>();
         if (genericDamage && (genericDamage.targetType == GenericDamage.Targets.All || genericDamage.targetType == GenericDamage.Targets.Player))
         {
@@ -169,13 +170,31 @@ public abstract class GenericPlayer : MonoBehaviour
                     Debug.Log("Dodge volt");
                 }
             }
+        }
+    }
 
-            return;
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
+    {
+        GenericDamage genericDamage = collider.GetComponent<GenericDamage>();
+        if (genericDamage && (genericDamage.targetType == GenericDamage.Targets.All || genericDamage.targetType == GenericDamage.Targets.Player))
+        {
+            collider.gameObject.transform.Translate((transform.position - collider.transform.position).normalized * -1 * pushbackForce);
+            if (!invincible)
+            {
+                if (dodge * 0.9 + luck * 0.1 < Random.Range(0, 100))
+                {
+                    TakeDamage(genericDamage.damage);
+                } else
+                {
+                    Debug.Log("Dodge volt");
+                }
+            }
+            Destroy(collider.gameObject);
         }
 
-        if (collision.CompareTag("Collectible"))
+        if (collider.CompareTag("Collectible"))
         {
-            xp += collision.GetComponent<CollectibleController>().xp * xpGain;
+            xp += collider.GetComponent<CollectibleController>().xp * xpGain;
 
             while (xp >= currentLevel * 2) //Ezt ha atiron majd a GameManagerben is at kell irni
             {
@@ -185,7 +204,7 @@ public abstract class GenericPlayer : MonoBehaviour
                 gameManager.LevelUpScreen();
             }
 
-            Destroy(collision.gameObject);
+            Destroy(collider.gameObject);
         }
     }
 }

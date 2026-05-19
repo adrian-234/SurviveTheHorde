@@ -57,11 +57,11 @@ public class Player_AbilityDash : GenericPlayer
         }
     }
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnCollisionEnter2D(Collision2D other)
     {  
-        base.OnTriggerEnter2D(collision);
+        base.OnCollisionEnter2D(other);
 
-        GenericEnemy enemy = collision.GetComponent<GenericEnemy>();
+        GenericEnemy enemy = other.collider.GetComponent<GenericEnemy>();
         if (dash && enemy)
         {
             enemy.TakeDamage((1 + damage_bonus) * dashDamage);

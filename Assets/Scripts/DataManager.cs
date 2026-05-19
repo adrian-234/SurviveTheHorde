@@ -74,6 +74,9 @@ public class DataManager : MonoBehaviour
             CoinSave data = JsonUtility.FromJson<CoinSave>(json);
 
             instance.coins = data.coinAmount;
+        } else
+        {
+            instance.coins = 0;
         }
     }
 }
