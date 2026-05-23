@@ -45,21 +45,35 @@ public class Enemy_Boss : GenericEnemy
     // Update is called once per frame
     protected override void Update()
     {
+        if (!dash) {
+            base.Update();
+        }
+    }
+
+    protected override void FixedUpdate()
+    {
         if (dash)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position).normalized * dashForce, ForceMode2D.Impulse);
-
-            dash = false;
-        } else
-        {
-            base.Update();
+            StartCoroutine(resetDash());
+        } else {
+            base.FixedUpdate();
         }
+    }
+
+    IEnumerator resetDash() {
+        yield return new WaitForSeconds(1.2f);
+        dash = false;
+        Rigidbody2D rb2D = gameObject.GetComponent<Rigidbody2D>();
+        gameObject.GetComponent<Rigidbody2D>().AddForce(-rb2D.linearVelocity * rb.mass, ForceMode2D.Impulse);
     }
 
     IEnumerator AbilitySelect()
     {
         while (true) {
-            if (Random.Range(0, 100) < 65)
+            int help = Random.Range(0, 100);
+            Debug.Log("random number " + help);
+            if (help < 65)
             {
                 StartCoroutine(AbilityShoot());
             } else

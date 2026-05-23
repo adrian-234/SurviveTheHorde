@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player_AbilityDash : GenericPlayer
@@ -32,7 +33,7 @@ public class Player_AbilityDash : GenericPlayer
     {
         if (dash)
         {
-            if (Vector3.Distance(startPos, transform.position) < dashRange)
+            if (Vector3.Distance(startPos, transform.position) < dashRange && isInBounds())
             {
                 transform.Translate((targetPos - startPos).normalized * dashSpeed, Space.World);
             } else
@@ -55,6 +56,12 @@ public class Player_AbilityDash : GenericPlayer
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
+    }
+
+    private bool isInBounds()
+    {
+        Vector3 newPos = transform.position + (targetPos - startPos).normalized * dashSpeed;
+        return newPos.x > gameManager.mapWidth / -2 && newPos.x < gameManager.mapWidth / 2 && newPos.y > gameManager.mapHeight / -2 && newPos.y < gameManager.mapHeight / 2;
     }
 
     protected override void OnCollisionEnter2D(Collision2D other)

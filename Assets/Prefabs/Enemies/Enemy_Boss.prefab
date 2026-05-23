@@ -120,7 +120,7 @@ MonoBehaviour:
   projectileDirectionCount: 6
   abilityCd: 5
   abilityCdDeviation: 1
-  dashForce: 5
+  dashForce: 1.5
 --- !u!61 &6052975062722180217
 BoxCollider2D:
   m_ObjectHideFlags: 0
