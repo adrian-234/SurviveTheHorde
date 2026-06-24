@@ -10,6 +10,9 @@ TagManager:
   - Enemy
   - Collectible
   - PermanentUpgradeCard
+  - LevelUpCard
+  - CharacterCard
+  - CharacterInfoPanel
   layers:
   - Default
   - TransparentFX

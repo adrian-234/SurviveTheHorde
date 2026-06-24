@@ -56,6 +56,16 @@ public class DataManager : MonoBehaviour
         SaveCoins();
     }
 
+    public bool SpendCoins(int amount)
+    {
+        if (amount <= coins)
+        {
+            SetCoins(coins - amount);
+            return true;
+        }
+        return false;
+    }
+
     private void SaveCoins()
     {
         CoinSave save = new CoinSave(coins);
