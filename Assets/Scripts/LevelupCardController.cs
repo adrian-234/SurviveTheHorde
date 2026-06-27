@@ -1,8 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class LevelupCardController : MonoBehaviour
+public class LevelupCardController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private static GenericPlayer player;
     private static GameManager gameManager;
@@ -25,7 +26,7 @@ public class LevelupCardController : MonoBehaviour
         }
         
         texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
-        image = gameObject.GetComponentsInChildren<Image>()[2];
+        image = gameObject.GetComponentsInChildren<Image>()[3];
         animator = gameObject.GetComponent<Animator>();
         gameObject.GetComponent<Button>().onClick.AddListener(ApplySelected);
 
@@ -35,6 +36,17 @@ public class LevelupCardController : MonoBehaviour
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        animator.SetTrigger("Hover");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        animator.ResetTrigger("Hover");
+        animator.SetTrigger("Normal");
+    }
+
     public void RefreshCard()
     {
         if (!didStart)
@@ -42,7 +54,6 @@ public class LevelupCardController : MonoBehaviour
             missedStart = true;
             return;
         }
-        //animator.ResetTrigger("Selected");
 
         int upgradeId = Random.Range(0, options.options.Count);
         int rarity = Random.Range(0, 100);
@@ -78,7 +89,7 @@ public class LevelupCardController : MonoBehaviour
         //Fejlesztesi opciohoz tartozo kep megjelenitese
         image.sprite = options.options[upgradeId].imgSrc;
 
-        //animator.SetTrigger("Flip");
+        animator.SetTrigger("Flip");
     }
 
     void ApplySelected()
@@ -116,9 +127,6 @@ public class LevelupCardController : MonoBehaviour
                 player.luck += currentUpgradeValue;
                 break;
         }
-
-        //animator.ResetTrigger("Flip");
-        //animator.ResetTrigger("Selected");
 
         gameManager.LevelUpScreenEnd();
     }

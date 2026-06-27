@@ -114,10 +114,9 @@ public class UnlockCharacter : MonoBehaviour
             if (info.name.ToLower() == characterName.ToLower() && dataManager.SpendCoins(info.unlockCost))
             {
                 saveData.characters[info.name] = true;
+                SaveSaveData();
+                LoadAndRefreshUI();
             }
-        }
-
-        SaveSaveData();
-        LoadAndRefreshUI();
+        }       
     }
 }

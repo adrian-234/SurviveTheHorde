@@ -35,7 +35,7 @@ public abstract class GenericPlayer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        rb2D = GetComponent<Rigidbody2D>(); // TODO mindegyik csak GetComponent legyen ne gameoject.getcomponent és mindenhez legyen requirement is
         rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         animator = gameObject.GetComponent<Animator>();
@@ -78,7 +78,7 @@ public abstract class GenericPlayer : MonoBehaviour
         //karakter mozgatasa es forgatasa input alapjan
         rb2D.linearVelocity = (1 + speed_bonus) * speed_base * movement;
 
-        if (movement.x < 0)
+        if (movement.x < 0) // TODO ugy kene megcsinalni hogy tartsa meg mindig az utolso iranyt
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         } else
