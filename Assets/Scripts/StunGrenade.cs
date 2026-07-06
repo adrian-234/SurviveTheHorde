@@ -4,6 +4,8 @@ public class StunGrenade : MonoBehaviour
 {
     public float range;
     public float speed;
+    public int size;
+    public float stunDuration;
     public GameObject explosionPrefab;
 
     public Vector3 targetPos;
@@ -19,7 +21,9 @@ public class StunGrenade : MonoBehaviour
     {
         if (Vector3.Distance(startPos, transform.position) >= range || Vector3.Distance(targetPos, transform.position) < 1)
         {
-            Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation);
+            StunController obj = Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation).GetComponent<StunController>();
+            obj.SetSize(size);
+            obj.SetStunDuration(stunDuration);
 
             Destroy(gameObject);
         }

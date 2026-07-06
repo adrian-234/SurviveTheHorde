@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class LevelupCardController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private static GenericPlayer player;
-    private static GameManager gameManager;
+    private static UIManager UIManager;
     private static LevelUpOptions options;
     private TextMeshProUGUI[] texts;
     private Image image;
@@ -21,7 +21,7 @@ public class LevelupCardController : MonoBehaviour, IPointerEnterHandler, IPoint
         if (!player)
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<GenericPlayer>();
-            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            UIManager = FindFirstObjectByType<UIManager>();
             options = GameObject.Find("LevelUpOptions").GetComponent<LevelUpOptions>();
         }
         
@@ -57,7 +57,7 @@ public class LevelupCardController : MonoBehaviour, IPointerEnterHandler, IPoint
 
         int upgradeId = Random.Range(0, options.options.Count);
         int rarity = Random.Range(0, 100);
-        rarity += player.luck;
+        rarity += player.GetLuck();
 
         currentUpgrade = options.options[upgradeId].name;
 
@@ -96,38 +96,8 @@ public class LevelupCardController : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         if (currentUpgrade == null)
             return;
+        player.AddBoostByName(currentUpgrade, currentUpgradeValue);
 
-        switch(currentUpgrade)
-        {
-            case "Damage":
-                player.damage_bonus += currentUpgradeValue / 100.0f;
-                break;
-            case "Health":
-                player.hp_bonus += currentUpgradeValue / 100.0f;
-                break;
-            case "Move speed":
-                player.speed_bonus += currentUpgradeValue / 100.0f;
-                break;
-            case "Fire rate":
-                player.firerate_bonus += currentUpgradeValue / 100.0f;
-                break;
-            case "Reload speed":
-                player.reload_bonus += currentUpgradeValue / 100.0f;
-                break;
-            case "Heal":
-                player.heal_bonus += currentUpgradeValue / 100.0f;
-                break;
-            case "Dodge":
-                player.dodge += currentUpgradeValue;
-                break;
-            case "Xp gain":
-                player.xpGain += currentUpgradeValue / 100.0f;
-                break;
-            case "Luck":
-                player.luck += currentUpgradeValue;
-                break;
-        }
-
-        gameManager.LevelUpScreenEnd();
+        UIManager.LevelUpScreenEnd();
     }
 }

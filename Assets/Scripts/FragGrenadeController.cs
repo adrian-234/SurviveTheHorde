@@ -30,8 +30,8 @@ public class FragGrenadeController : MonoBehaviour
         {
             var explosion = Instantiate(explosionPrefab, transform.position, explosionPrefab.transform.rotation).GetComponent<ExplosionController>();
             explosion.damage = explosionDamage_base * damage_bonus;
-            explosion.knockback = explosionKnockback;
-            explosion.size = explosionSize;
+            explosion.SetKnockback(explosionKnockback);
+            explosion.SetSize(explosionSize);
 
             for(int i = 0; i < fragCount; i++) {
                 var frag = Instantiate(fragPrefab, transform.position, Random.rotation).GetComponent<Bullet>();
@@ -41,6 +41,6 @@ public class FragGrenadeController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * Vector2.right);
     }
 }

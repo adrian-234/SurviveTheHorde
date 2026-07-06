@@ -50,7 +50,7 @@ public class Enemy_Exploder : GenericEnemy
 
         ExplosionController explosionInstance = Instantiate(explosion, transform.position, explosion.transform.rotation).GetComponent<ExplosionController>();
         explosionInstance.damage = explosionDamage;
-        explosionInstance.size = explosionSize;
+        explosionInstance.SetSize(explosionSize);
         Destroy(gameObject);
     }
 }

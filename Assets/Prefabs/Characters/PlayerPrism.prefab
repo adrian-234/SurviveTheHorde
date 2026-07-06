@@ -139,23 +139,15 @@ MonoBehaviour:
   reload_base: 1.5
   hp_base: 15
   heal_base: 0.2
-  speed_bonus: 0
-  firerate_bonus: 0
-  reload_bonus: 0
-  damage_bonus: 0
-  hp_bonus: 0
-  heal_bonus: 0
-  dodge: 10
-  xpGain: 1
-  luck: 0
-  maxAmmo: 20
-  minReloadTime: 0.1
+  dodge: 5
+  pushbackForce: 10
   bulletSprite: {fileID: 4926285100541691496, guid: 7e77830e4b08c4e43917c16ec52729e6, type: 3}
-  xp: 0
+  currentXp: 0
   currentLevel: 1
   currentHp: 0
   abilityCdTime: 2
   abilityOnCd: 0
+  dodgeTextPrefab: {fileID: 959931877216923067, guid: 7657351de9f79b845b5cd46dc843259d, type: 3}
   grenadePrefab: {fileID: 593503782935777583, guid: dc2cad5eb6f9a9049ba9d2139e305acb, type: 3}
 --- !u!61 &-4903594465092040927
 BoxCollider2D:

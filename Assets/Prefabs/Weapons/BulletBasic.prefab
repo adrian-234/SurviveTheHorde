@@ -107,10 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   damage: 4
-  knockback: 200
   targetType: 1
   range: 75
   speed: 50
+  knockback: 9
 --- !u!50 &-7779420305523579448
 Rigidbody2D:
   serializedVersion: 5

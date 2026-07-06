@@ -1,26 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-/*
-    kepessegek:
-        spiral loves:
-           - 6 helyen lő (60 fokonként)
-           - 8szor lő egy sorozatban
-           - minden lövésnél 7.5 fokkal odébb forog a lövési pont
-           - lövés közben teljesen megáll
-           - 65% esélyel lesz ez az ability használva
-        dash:
-            - dashhel egy nagyott a player fele
-            - akkár túl is lőhet azon
-            - 35% esélyel lesz ez az ability használva
-        ?gyors robbbantósokat spawnol maga alá?
-    
-    lassan mozog
-    nagy darab
-
-    sűrűbben lő mint dasshel
-*/
-
 public class Enemy_Boss : GenericEnemy
 {
     public GameObject projectile;
@@ -105,6 +85,6 @@ public class Enemy_Boss : GenericEnemy
 
     protected override void Die()
     {
-        gameManager.GameoverScreen(true);
+        UIManager.GameoverScreen(true);
     }
 }

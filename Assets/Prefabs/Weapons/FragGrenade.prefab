@@ -109,8 +109,8 @@ MonoBehaviour:
   speed: 30
   explosionPrefab: {fileID: 3465585070349356343, guid: e977f2a54954e81458683f41f7055454, type: 3}
   explosionDamage_base: 10
-  explosionSize: 18
-  explosionKnockback: 350
+  explosionSize: 7
+  explosionKnockback: 12
   fragPrefab: {fileID: 1800979419256730593, guid: 212f1cf0ac69f1843ba76b56f222cf6c, type: 3}
   fragCount: 10
   targetPos: {x: 0, y: 0, z: 0}

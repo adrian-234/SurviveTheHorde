@@ -5,19 +5,19 @@ public class CrosshairController : MonoBehaviour
 {
     private bool autoTarget = false;
     private GameObject player;
-    private GameManager gameManager;
+    private UIManager UIManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        UIManager = FindFirstObjectByType<UIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!gameManager.paused)
+        if (!UIManager.paused)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {

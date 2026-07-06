@@ -3,18 +3,48 @@ using System.Collections;
 
 public class ExplosionController : GenericDamage
 {
-    public int size;
+    private int size;    //A robbanas hatosugara
+    private float knockback; //Mennyivel tud vissza lokni az robbanas
+    [SerializeField]
+    private float despawnTime;
+    private float growthRate;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public void SetSize(int s)
+    {
+        size = s;
+        growthRate = size / despawnTime;
+    }
+
+    public void SetKnockback(float k)
+    {
+        knockback = k;
+    }
+
     void Start()
     {
-        transform.localScale = new Vector3(size, size, size);
         StartCoroutine(Despawn());
     }
 
+    void Update()
+    {
+        if (transform.localScale.x < size)
+        {
+            transform.localScale += new Vector3(growthRate * Time.deltaTime, growthRate * Time.deltaTime);
+        }
+    }
+
     IEnumerator Despawn() {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(despawnTime);
 
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy") && collision.GetComponent<GenericEnemy>().hp > damage)
+        {
+            Vector3 direction = (collision.transform.position - transform.position).normalized;
+            collision.transform.position += knockback * direction;
+        }
     }
 }

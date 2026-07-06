@@ -121,12 +121,12 @@ public class PermanentUpgradesData : MonoBehaviour
         return new PermanentUpgrade();
     }
 
-    public float GetUpgradeBoostByName(string name)
+    public int GetUpgradeBoostByName(string name)
     {
         PermanentUpgrade upgrade = GetUpgradeByName(name);
         if (upgrade.upgradeValues == null)
         {
-            return 0.0f;
+            return 0;
         }
         int level = GetUpgradeLevelByName(name) - 1;
         if (level == -1)
@@ -134,7 +134,7 @@ public class PermanentUpgradesData : MonoBehaviour
             return 0;
         } else
         {
-            return upgrade.upgradeValues[level] / 100.0f;
+            return upgrade.upgradeValues[level];
         }
     }
 }

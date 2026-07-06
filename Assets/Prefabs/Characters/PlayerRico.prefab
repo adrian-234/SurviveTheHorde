@@ -202,6 +202,7 @@ MonoBehaviour:
   currentHp: 0
   abilityCdTime: 5
   abilityOnCd: 0
+  dodgeTextPrefab: {fileID: 959931877216923067, guid: 7657351de9f79b845b5cd46dc843259d, type: 3}
   grenadePrefab: {fileID: 7195896891869795099, guid: 1d06e51e3ae29bb4a9375eadd9e6226f, type: 3}
 --- !u!95 &-9047870116313791865
 Animator:

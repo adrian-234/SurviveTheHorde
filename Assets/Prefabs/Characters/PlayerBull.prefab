@@ -112,23 +112,15 @@ MonoBehaviour:
   reload_base: 1.8
   hp_base: 20
   heal_base: 0
-  speed_bonus: 0
-  firerate_bonus: 0
-  reload_bonus: 0
-  damage_bonus: 0
-  hp_bonus: 0
-  heal_bonus: 0
-  dodge: 0
-  xpGain: 1
-  luck: 0
-  maxAmmo: 6
-  minReloadTime: 0.2
+  dodge: 10
+  pushbackForce: 10
   bulletSprite: {fileID: 4926285100541691496, guid: 7e77830e4b08c4e43917c16ec52729e6, type: 3}
-  xp: 0
+  currentXp: 0
   currentLevel: 1
   currentHp: 0
   abilityCdTime: 3
   abilityOnCd: 0
+  dodgeTextPrefab: {fileID: 959931877216923067, guid: 7657351de9f79b845b5cd46dc843259d, type: 3}
   dashRange: 100
   dashSpeed: 5
   dashDamage: 10

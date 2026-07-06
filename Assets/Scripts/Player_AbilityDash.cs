@@ -46,12 +46,12 @@ public class Player_AbilityDash : GenericPlayer
             }
         } else {
             //karakter mozgatasa es forgatasa input alapjan
-            rb2D.linearVelocity = (1 + speed_bonus) * speed_base * movement;
+            rb2D.linearVelocity = GetSpeed() * movement;
 
             if (movement.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-            } else
+            } else if (movement.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }

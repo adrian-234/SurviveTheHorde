@@ -106,5 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StunGrenade
   range: 40
   speed: 30
+  size: 7
+  stunDuration: 1
   explosionPrefab: {fileID: 8758924145746013151, guid: 42f312473a7f5c5479b27d46c8940119, type: 3}
   targetPos: {x: 0, y: 0, z: 0}

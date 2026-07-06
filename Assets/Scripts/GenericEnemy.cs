@@ -8,7 +8,7 @@ public class GenericEnemy : GenericDamage
     public GameObject xpSprite;
 
     protected static GameObject player;
-    protected static GameManager gameManager;
+    protected static UIManager UIManager;
     protected Rigidbody2D rb;   
     protected Animator animator;
     protected Vector2 movement;
@@ -20,10 +20,10 @@ public class GenericEnemy : GenericDamage
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         animator = gameObject.GetComponent<Animator>();
 
-        if (player == null || gameManager == null)
+        if (player == null || UIManager == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            UIManager = FindFirstObjectByType<UIManager>();
         }
     }
 
@@ -31,7 +31,6 @@ public class GenericEnemy : GenericDamage
     protected virtual void Update()
     {
         movement = (player.transform.position - transform.position).normalized;
-        //transform.Translate(speed * Time.deltaTime * movementV);        
     }
 
     protected virtual void FixedUpdate()
@@ -42,7 +41,7 @@ public class GenericEnemy : GenericDamage
             if (movement.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-            } else
+            } else if (movement.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
@@ -70,7 +69,7 @@ public class GenericEnemy : GenericDamage
         CollectibleController xpDrop = Instantiate(xpSprite, transform.position, xpSprite.transform.rotation).GetComponent<CollectibleController>();
         xpDrop.xp = xp;
 
-        gameManager.killCounter++;
+        UIManager.killCounter++;
 
         Destroy(gameObject);
     }
@@ -78,10 +77,8 @@ public class GenericEnemy : GenericDamage
     void OnTriggerEnter2D(Collider2D collision)
     {
         GenericDamage genericDamage = collision.GetComponent<GenericDamage>();
-        if (genericDamage && (genericDamage.targetType == GenericDamage.Targets.All || genericDamage.targetType == GenericDamage.Targets.Enemy))
-        {
-            Destroy(collision.gameObject);
-
+        if (genericDamage && (genericDamage.targetType == Targets.All || genericDamage.targetType == Targets.Enemy))
+        {            
             TakeDamage(genericDamage.damage);
         }
     }

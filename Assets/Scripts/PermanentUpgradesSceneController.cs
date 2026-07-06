@@ -62,7 +62,6 @@ public class PermanentUpgradesSceneController : MonoBehaviour
 
     public void BuyUpgrade(string name)
     {
-        Debug.Log("Vasarlas");
         int upgradeLevel = upgradesData.GetUpgradeLevelByName(name);
 
         if (upgradeLevel >= 3)
@@ -97,8 +96,6 @@ public class PermanentUpgradesSceneController : MonoBehaviour
             upgradesData.SavePermanentUpgrades();
             dataManager.SetCoins(dataManager.GetCoins() - upgradeCost);
             LoadUI();
-
-            Debug.Log("Upgrade megvasrolva nev: " + name + "     ar: " + upgradeCost);
         }
     }
 }

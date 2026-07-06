@@ -1954,66 +1954,6 @@ RectTransform:
   m_AnchoredPosition: {x: 105, y: -93}
   m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &380116824
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 380116826}
-  - component: {fileID: 380116825}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &380116825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380116824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37fc56239a31cb2489aad27ddfecb325, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  levelUpContainer: {fileID: 782610458}
-  pauseMenu: {fileID: 177814895}
-  gameoverScreen: {fileID: 979769584}
-  levelUpCards:
-  - {fileID: 274503108}
-  - {fileID: 817353381}
-  - {fileID: 481928082}
-  - {fileID: 1079235889}
-  paused: 0
-  killCounter: 0
-  abilityCounter: 0
-  killCoinValue: 1
-  LevelupCoinValue: 5
-  abilityCoinValue: 3
-  bossCoinValue: 50
-  instance: {fileID: 0}
---- !u!4 &380116826
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 380116824}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &397650378
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,135 +3033,26 @@ MonoBehaviour:
     prefab: {fileID: 5835146468835447139, guid: a243b8d74093ea9429d8d47d6273e88a, type: 3}
   - name: Boss
     prefab: {fileID: 1608353840375827113, guid: cb2327719732f094788413bc56c897b2, type: 3}
-  spawnMap:
-  - name: Walker
-    spawnStart: 0
-    spawnEnd: 30
-    minCount: 1
-    maxCount: 1
-  - name: Walker
-    spawnStart: 30
-    spawnEnd: 80
-    minCount: 1
-    maxCount: 2
-  - name: Shooter
-    spawnStart: 40
-    spawnEnd: 50
-    minCount: 1
-    maxCount: 1
-  - name: Exploder
-    spawnStart: 70
-    spawnEnd: 90
-    minCount: 1
-    maxCount: 1
-  - name: Walker
-    spawnStart: 80
-    spawnEnd: 180
-    minCount: 2
-    maxCount: 4
-  - name: Shooter
-    spawnStart: 100
-    spawnEnd: 180
-    minCount: 1
-    maxCount: 2
-  - name: Exploder
-    spawnStart: 180
-    spawnEnd: 190
-    minCount: 2
-    maxCount: 4
-  - name: Walker
-    spawnStart: 190
-    spawnEnd: 300
-    minCount: 2
-    maxCount: 5
-  - name: Exploder_Fast
-    spawnStart: 200
-    spawnEnd: 220
-    minCount: 2
-    maxCount: 4
-  - name: Shooter
-    spawnStart: 220
-    spawnEnd: 300
-    minCount: 1
-    maxCount: 3
-  - name: Walker
-    spawnStart: 300
-    spawnEnd: 320
-    minCount: 1
-    maxCount: 3
-  - name: Exploder
-    spawnStart: 300
-    spawnEnd: 340
-    minCount: 2
-    maxCount: 2
-  - name: Shooter
-    spawnStart: 320
-    spawnEnd: 340
-    minCount: 2
-    maxCount: 2
-  - name: Walker
-    spawnStart: 340
-    spawnEnd: 400
-    minCount: 4
-    maxCount: 5
-  - name: Walker
-    spawnStart: 400
-    spawnEnd: 600
-    minCount: 2
-    maxCount: 6
-  - name: Walker
-    spawnStart: 400
-    spawnEnd: 600
-    minCount: 2
-    maxCount: 6
-  - name: Exploder_Fast
-    spawnStart: 600
-    spawnEnd: 620
-    minCount: 3
-    maxCount: 3
-  - name: Walker
-    spawnStart: 600
-    spawnEnd: 900
-    minCount: 4
-    maxCount: 7
-  - name: Exploder
-    spawnStart: 520
-    spawnEnd: 600
-    minCount: 2
-    maxCount: 4
-  - name: Shooter
-    spawnStart: 580
-    spawnEnd: 650
-    minCount: 2
-    maxCount: 4
-  - name: Shooter
-    spawnStart: 680
-    spawnEnd: 750
-    minCount: 2
-    maxCount: 4
-  - name: Exploder
-    spawnStart: 720
-    spawnEnd: 780
-    minCount: 1
-    maxCount: 3
-  - name: Exploder_Fast
-    spawnStart: 830
-    spawnEnd: 860
-    minCount: 1
-    maxCount: 3
-  - name: Shooter
-    spawnStart: 850
-    spawnEnd: 880
-    minCount: 2
-    maxCount: 3
-  - name: Boss
-    spawnStart: 900
-    spawnEnd: 900
-    minCount: 1
-    maxCount: 1
+  spawnMap: []
   enemyScaleFactor: 0.02
+  isGameActive: 1
+  paused: 0
+  levelUpContainer: {fileID: 782610458}
+  pauseMenu: {fileID: 177814895}
+  gameoverScreen: {fileID: 979769584}
+  levelUpCards:
+  - {fileID: 274503108}
+  - {fileID: 817353381}
+  - {fileID: 481928082}
+  - {fileID: 1079235889}
+  killCoinValue: 1
+  LevelupCoinValue: 5
+  abilityCoinValue: 3
+  bossCoinValue: 20
   mapWidth: 600
   mapHeight: 600
+  killCounter: 0
+  abilityCounter: 0
 --- !u!4 &642592208
 Transform:
   m_ObjectHideFlags: 0
@@ -3430,7 +3261,7 @@ PrefabInstance:
     - target: {fileID: 7944207692606271146, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 380116825}
+      objectReference: {fileID: 642592207}
     - target: {fileID: 7944207692606271146, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3441,7 +3272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7944207692606271146, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7944207692606271146, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -5035,7 +4866,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1060692851}
   - component: {fileID: 1060692852}
-  - component: {fileID: 1060692853}
   m_Layer: 0
   m_Name: LevelUpOptions
   m_TagString: Untagged
@@ -5132,28 +4962,6 @@ MonoBehaviour:
     rareValue: 8
     legendaryValue: 10
     imgSrc: {fileID: 21300000, guid: 6c14e4eb22ea2bf48a692d11bc674bd5, type: 3}
---- !u!95 &1060692853
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1060692850}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 57574c3b828008145978f11e3c6969ce, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1079235889
 GameObject:
   m_ObjectHideFlags: 0
@@ -11546,7 +11354,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 642592208}
-  - {fileID: 380116826}
   - {fileID: 1507495156}
   - {fileID: 2136558346}
   - {fileID: 320678783}
