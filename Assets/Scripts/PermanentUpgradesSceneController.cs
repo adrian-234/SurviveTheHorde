@@ -7,8 +7,6 @@ public class PermanentUpgradesSceneController : MonoBehaviour
     private DataManager dataManager;
     private PermanentUpgradesData upgradesData;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dataManager = DataManager.getInstance();

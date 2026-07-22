@@ -11,19 +11,15 @@ public class FragGrenadeController : MonoBehaviour
     public float explosionKnockback;
     public GameObject fragPrefab;
     public int fragCount;
-
     public Vector3 targetPos;
 
     private Vector3 startPos;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         startPos = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Vector3.Distance(startPos, transform.position) >= range || Vector3.Distance(targetPos, transform.position) < 1)

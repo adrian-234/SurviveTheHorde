@@ -15,7 +15,6 @@ public class LevelupCardController : MonoBehaviour, IPointerEnterHandler, IPoint
     private int currentUpgradeValue;
     private bool missedStart = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (!player)

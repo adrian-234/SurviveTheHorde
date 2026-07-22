@@ -8,7 +8,6 @@ public class SceneChanger : MonoBehaviour
     public int targetSceneId;  
     public bool setTimeScaleTo1 = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         button = GetComponent<Button>();

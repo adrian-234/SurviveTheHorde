@@ -14,7 +14,6 @@ public class GenericEnemy : GenericDamage
     protected Vector2 movement;
     protected bool dead = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -28,7 +27,6 @@ public class GenericEnemy : GenericDamage
         }
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         movement = (player.transform.position - transform.position).normalized;

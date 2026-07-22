@@ -220,7 +220,6 @@ public abstract class GenericPlayer : MonoBehaviour
         currentAmmo = maxAmmo;
         currentHp = GetHp();
 
-        // StartCoroutine(Shoot());
         StartCoroutine(Heal());
     }
 
@@ -258,30 +257,6 @@ public abstract class GenericPlayer : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-
-    // IEnumerator Shoot()
-    // {
-    //     while (true)
-    //     {
-    //         if (currentAmmo == 0)
-    //         {
-    //             float reload = GetReload();
-    //             yield return new WaitForSeconds(reload);
-
-    //             currentAmmo = maxAmmo;
-    //         } else
-    //         {
-    //             yield return new WaitForSeconds(GetFirerate());
-    //         }
-            
-    //         Vector2 posDiff = crosshair.transform.position - transform.position;
-    //         float angle = Mathf.Atan2(posDiff.y, posDiff.x) * Mathf.Rad2Deg;
-
-    //         Bullet bullet = Instantiate(bulletSprite, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)).GetComponent<Bullet>();
-    //         currentAmmo--;
-    //         bullet.damage *= GetDamageBonus() / 100.0f;
-    //     }
-    // }
 
     IEnumerator Heal() {
         while (true) {
