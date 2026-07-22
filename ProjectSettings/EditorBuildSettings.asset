@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterSelecterNew.unity
     guid: 7b098c7d057a0d5428c07b9d03e0125e
+  - enabled: 1
+    path: Assets/Scenes/WeaponSelector.unity
+    guid: e6c20d5f83821814b8ab2a07cfb94201
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

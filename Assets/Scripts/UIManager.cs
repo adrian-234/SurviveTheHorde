@@ -84,8 +84,8 @@ public class UIManager : MonoBehaviour
 
             damageText.text = $"{player.GetDamageBonus()}%";
             mSpeedText.text = $"{player.GetSpeedBonus()}%";
-            fRateText.text = $"{player.GetFirerate()}%";
-            rSpeedText.text = $"{player.GetReload()}%";
+            fRateText.text = $"{100 - player.GetFirerateBonus() + 100}%";
+            rSpeedText.text = $"{100 - player.GetReloadBonus() + 100}%";
             hpText.text = $"{player.GetHpBonus()}%";
             healText.text = $"{player.GetHealBonus()}%";
             dodgeText.text = $"{player.GetDodge()}%";

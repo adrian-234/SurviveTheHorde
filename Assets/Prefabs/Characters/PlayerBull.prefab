@@ -85,12 +85,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4986849600995181122, guid: d33f6f5098a016843a31a3349a819ce8, type: 3}
+  m_Sprite: {fileID: 8898366641983171139, guid: e8babfd4e6db3dc40b72f9455f5ad718, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 16.82, y: 10.47}
+  m_Size: {x: 0.47, y: 1.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -108,8 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_AbilityDash
   speed_base: 16
-  firerate_base: 1
-  reload_base: 1.8
   hp_base: 20
   heal_base: 0
   dodge: 10
@@ -120,6 +118,7 @@ MonoBehaviour:
   currentHp: 0
   abilityCdTime: 3
   abilityOnCd: 0
+  weapon: {fileID: 0}
   dodgeTextPrefab: {fileID: 959931877216923067, guid: 7657351de9f79b845b5cd46dc843259d, type: 3}
   dashRange: 100
   dashSpeed: 5
@@ -189,8 +188,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 58, y: 125}
-    newSize: {x: 16.82, y: 10.47}
+    oldSize: {x: 0.47, y: 1.25}
+    newSize: {x: 0.47, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -207,7 +206,7 @@ Animator:
   m_GameObject: {fileID: 4047579658647722200}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 99d2830f9cd8273469ecc6f4119b52ff, type: 2}
+  m_Controller: {fileID: 9100000, guid: 49cf637b028332749a302cf55e21c173, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

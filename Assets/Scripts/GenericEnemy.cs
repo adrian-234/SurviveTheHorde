@@ -12,6 +12,7 @@ public class GenericEnemy : GenericDamage
     protected Rigidbody2D rb;   
     protected Animator animator;
     protected Vector2 movement;
+    protected bool dead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
@@ -35,7 +36,7 @@ public class GenericEnemy : GenericDamage
 
     protected virtual void FixedUpdate()
     {
-        if (movement != Vector2.zero)
+        if (movement != Vector2.zero && speed != 0)
         {
             animator.SetBool("Walk", true);
             if (movement.x < 0)
@@ -45,21 +46,22 @@ public class GenericEnemy : GenericDamage
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
+
+            //karakter mozgatasa 
+            rb.linearVelocity = speed * movement;       
         } else
         {
             animator.SetBool("Walk", false);
-        }
-
-        //karakter mozgatasa 
-        rb.linearVelocity = speed * movement;        
+        }   
     }
 
     public void TakeDamage(float damage)
     {
         hp -= damage;
 
-        if (hp <= 0)
+        if (hp <= 0 && !dead)
         {
+            dead = true;
             Die();
         }
     }
@@ -84,13 +86,14 @@ public class GenericEnemy : GenericDamage
     }
 
     //Azert kell igy 2 fuggvennyel csinalni mert ha a FragController hivna meg egybol az IEnumerator-os fv-t akkor az megszakadni WaitForSeconds soran, mert a FragController megszunik kozben es igy a fv nem fejezodne be
-    public void Freeze(float time)
+    public virtual void Freeze(float time)
     {
         float normalSpeed = speed;
         speed = 0;
+        rb.linearVelocity = Vector2.zero;
         StartCoroutine(ResetFreeze(time, normalSpeed));
     }
-    IEnumerator ResetFreeze(float time, float speed)
+    protected virtual IEnumerator ResetFreeze(float time, float speed)
     {
         yield return new WaitForSeconds(time);
         this.speed = speed;

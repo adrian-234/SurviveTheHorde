@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: d33f6f5098a016843a31a3349a819ce8
+guid: e8babfd4e6db3dc40b72f9455f5ad718
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4986849600995181122
-    second: Player_Rico_0
+      213: 8898366641983171139
+    second: Player_Bull_0
   - first:
-      213: 8972795809865663570
-    second: Player_Rico_1
+      213: 8298315944803414369
+    second: Player_Bull_1
   - first:
-      213: -7709655133105122728
-    second: Player_Rico_2
+      213: -3287802050377698473
+    second: Player_Bull_2
   - first:
-      213: 9049425179233599018
-    second: Player_Rico_3
+      213: 5272196167803017836
+    second: Player_Bull_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,89 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Rico_0
+      name: Player_Bull_0
       rect:
         serializedVersion: 2
         x: 17
         y: 129
-        width: 58
+        width: 52
         height: 125
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 242cd976a49d43540800000000000000
-      internalID: 4986849600995181122
+      spriteID: 34aa798b0595d7b70800000000000000
+      internalID: 8898366641983171139
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Rico_1
+      name: Player_Bull_1
       rect:
         serializedVersion: 2
         x: 97
         y: 129
-        width: 58
+        width: 52
         height: 125
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2540829cf36c58c70800000000000000
-      internalID: 8972795809865663570
+      spriteID: 161b7fba26a892370800000000000000
+      internalID: 8298315944803414369
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Rico_2
+      name: Player_Bull_2
       rect:
         serializedVersion: 2
         x: 17
         y: 0
-        width: 58
+        width: 52
         height: 124
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8529082018dc10590800000000000000
-      internalID: -7709655133105122728
+      spriteID: 753bf6764716f52d0800000000000000
+      internalID: -3287802050377698473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Rico_3
+      name: Player_Bull_3
       rect:
         serializedVersion: 2
         x: 97
         y: 0
-        width: 58
+        width: 52
         height: 124
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a2eb1bd2144069d70800000000000000
-      internalID: 9049425179233599018
+      spriteID: c6a13183b7a9a2940800000000000000
+      internalID: 5272196167803017836
       vertices: []
       indices: 
       edges: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d4e0f0436d98d7948b7ab4abda956bf1
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Player_Rico_0: 4986849600995181122
-      Player_Rico_1: 8972795809865663570
-      Player_Rico_2: -7709655133105122728
-      Player_Rico_3: 9049425179233599018
+      Player_Bull_0: 8898366641983171139
+      Player_Bull_1: 8298315944803414369
+      Player_Bull_2: -3287802050377698473
+      Player_Bull_3: 5272196167803017836
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

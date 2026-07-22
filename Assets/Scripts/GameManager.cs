@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private DataManager dataManager;
     private GameObject player;
     public List<GameObject> characters; //Kulonbozo jatekos karakerek prefabjei
+    public List<GameObject> weapons; // Kulonbozo fegyverek prefabjei
     public List<EnemyType> enemies;     //Kulonbozo ellenfelekhez tartozo prefabek (nev - gameobject formaban)
     public List<SpawnWave> spawnMap;    //Ez a lista tarolja, hogy mikor melyik ellenfelet lehet spawnolni es mennyit. spawnStart mezo erteke szerint novekvo sorrenben kell lennie
     public float enemyScaleFactor;      //Ennyivel erosodnek az ellensegek minden perc utan
@@ -41,15 +42,22 @@ public class GameManager : MonoBehaviour
         dataManager = DataManager.getInstance();
         if (!dataManager) //csak a konnyebb es gyorsabb teszteles miatt kell ez az if
         {
-            Debug.LogError("Nem sikerult beallitani a dataManagert. 0-s id lett ezert lespawnolva.");
+            Debug.LogError("Nem sikerult beallitani a dataManagert. 0-s idk lettek ezert lespawnolva.");
             player = Instantiate(characters[0], Vector3.zero,  characters[0].transform.rotation);
+            GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
+            GenericWeapon weapon = Instantiate(weapons[0], player.transform).GetComponent<GenericWeapon>();
+            weapon.player = gPlayer;
+            gPlayer.weapon = weapon;
         } else
         {
             player = Instantiate(characters[dataManager.selectedCharacterId], Vector3.zero,  characters[dataManager.selectedCharacterId].transform.rotation);
-            
+            GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
+            GenericWeapon weapon = Instantiate(weapons[dataManager.selectedWeaponId], player.transform).GetComponent<GenericWeapon>();
+            weapon.player = gPlayer;
+            gPlayer.weapon = weapon;
+
             //permanent boostok betöltése
             PermanentUpgradesData permanentUpgradesData = PermanentUpgradesData.getInstance();
-            GenericPlayer gPlayer = player.GetComponent<GenericPlayer>();
             Debug.Log($"betoltott fejlesztesek:\n\tdamage{permanentUpgradesData.GetUpgradeBoostByName("Damage")}\n\treload {permanentUpgradesData.GetUpgradeBoostByName("Reload Speed")}\n\tfirerate {permanentUpgradesData.GetUpgradeBoostByName("Firerate")}\n\thp {permanentUpgradesData.GetUpgradeBoostByName("Health")}\n\theal {permanentUpgradesData.GetUpgradeBoostByName("Heal")}\n\tmovespeed {permanentUpgradesData.GetUpgradeBoostByName("Move Speed")}");
             gPlayer.AddDamageBonus(permanentUpgradesData.GetUpgradeBoostByName("Damage"));
             gPlayer.AddReloadBonus(permanentUpgradesData.GetUpgradeBoostByName("Reload Speed"));
@@ -57,7 +65,6 @@ public class GameManager : MonoBehaviour
             gPlayer.AddHpBonus(permanentUpgradesData.GetUpgradeBoostByName("Health"));
             gPlayer.AddHealBonus(permanentUpgradesData.GetUpgradeBoostByName("Heal"));
             gPlayer.AddSpeedBonus(permanentUpgradesData.GetUpgradeBoostByName("Move Speed"));
-
         }
 
         StartCoroutine(SpawnEnemies());

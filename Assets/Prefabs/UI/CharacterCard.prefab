@@ -160,7 +160,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5988162335347909256}
   - component: {fileID: 2471266791695712595}
-  - component: {fileID: 484192992173276879}
   m_Layer: 5
   m_Name: CharacterCard
   m_TagString: CharacterCard
@@ -231,20 +230,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &484192992173276879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5043635416780558752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7032f2d5064e44bad822832df4bcbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OpenCharacterPanel
-  panel: {fileID: 0}
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: OpenCharacterPanel, Assembly-CSharp
+        m_MethodName: OpenPanel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5376248788667880261
 GameObject:
   m_ObjectHideFlags: 0

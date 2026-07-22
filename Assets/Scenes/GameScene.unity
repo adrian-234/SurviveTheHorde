@@ -3082,6 +3082,13 @@ MonoBehaviour:
   - {fileID: 5668303438930395528, guid: ddda1c1c2dec9004880d249fa35328e7, type: 3}
   - {fileID: 8345751517884992926, guid: 82fc02d4f9b7f0943af09bb17d0d9b0f, type: 3}
   - {fileID: 4047579658647722200, guid: 6f42d6904537ebc4c8975726ea263d64, type: 3}
+  weapons:
+  - {fileID: 4671324914957559459, guid: 3efd37bc14b42d54ca6c56a17d8e40b9, type: 3}
+  - {fileID: 1320404578333953569, guid: 35d8c834e97cd1e4ea533674319db0e7, type: 3}
+  - {fileID: 2410386166601627664, guid: 34ae61d2b104edd4d82172b2ec3d20c6, type: 3}
+  - {fileID: 3789093585344767759, guid: dfeeb71d423bc6e46aabdfdc808be903, type: 3}
+  - {fileID: 5032089710126682853, guid: 23aa80730130a2442926e95646101a65, type: 3}
+  - {fileID: 4843296458537377319, guid: 0fb3213b7c6ef6846a9d6900b68beabf, type: 3}
   enemies:
   - name: Walker
     prefab: {fileID: 6367351440991853765, guid: dbd231c534e02784598fd062b68d7f9f, type: 3}
@@ -6399,6 +6406,10 @@ PrefabInstance:
       propertyPath: targetSceneId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 378132874740201022, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
+      propertyPath: setTimeScaleTo1
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1953382934920712396, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7764,6 +7775,10 @@ PrefabInstance:
     - target: {fileID: 378132874740201022, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: targetSceneId
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 378132874740201022, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
+      propertyPath: setTimeScaleTo1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1953382934920712396, guid: 505f0cb60ce35a64f93ff0220054fd8a, type: 3}
       propertyPath: m_Pivot.x

@@ -85,12 +85,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1933079673825542391, guid: 517db6b0233cc86458d8747747dbdbde, type: 3}
+  m_Sprite: {fileID: 4986849600995181122, guid: e7f771f0e1ef75a41847996cb53b05d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.58, y: 1.24}
+  m_Size: {x: 0.47, y: 1.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -160,8 +160,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 58, y: 124}
-    newSize: {x: 0.58, y: 1.24}
+    oldSize: {x: 0.47, y: 1.24}
+    newSize: {x: 0.47, y: 1.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -181,27 +181,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_AbilityGrenade
   speed_base: 14
-  firerate_base: 1
-  reload_base: 2
   hp_base: 20
   heal_base: 0.2
-  speed_bonus: 0
-  firerate_bonus: 0
-  reload_bonus: 0
-  damage_bonus: 0
-  hp_bonus: 0
-  heal_bonus: 0
   dodge: 0
-  xpGain: 1
-  luck: 0
-  maxAmmo: 8
-  minReloadTime: 0.2
+  pushbackForce: 10
   bulletSprite: {fileID: 4926285100541691496, guid: 7e77830e4b08c4e43917c16ec52729e6, type: 3}
-  xp: 0
+  currentXp: 0
   currentLevel: 1
   currentHp: 0
   abilityCdTime: 5
   abilityOnCd: 0
+  weapon: {fileID: 0}
   dodgeTextPrefab: {fileID: 959931877216923067, guid: 7657351de9f79b845b5cd46dc843259d, type: 3}
   grenadePrefab: {fileID: 7195896891869795099, guid: 1d06e51e3ae29bb4a9375eadd9e6226f, type: 3}
 --- !u!95 &-9047870116313791865
@@ -214,7 +204,7 @@ Animator:
   m_GameObject: {fileID: 5668303438930395528}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b8b2f8388092b894399eb875baff5100, type: 2}
+  m_Controller: {fileID: 9100000, guid: 39f887f5def8bfd42af0756fa8e8d4ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

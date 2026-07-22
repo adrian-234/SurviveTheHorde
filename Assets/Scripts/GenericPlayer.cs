@@ -6,7 +6,7 @@ public abstract class GenericPlayer : MonoBehaviour
 {
     //Alap statisztikak (amelyek majd a szazalekos alapon lesznek novelne)
     [SerializeField]
-    protected float speed_base, firerate_base, reload_base, hp_base, heal_base;
+    protected float speed_base, /*firerate_base, reload_base,*/ hp_base, heal_base;
 
     //Bonusz statisztikak
     protected int speed_bonus = 100, firerate_bonus = 100, reload_bonus = 100, damage_bonus = 100, hp_bonus = 100, heal_bonus = 100;
@@ -16,6 +16,7 @@ public abstract class GenericPlayer : MonoBehaviour
     protected int dodge = 0;     //annak az eselye hogy a jatekos megusszon egy sebzest (max: 100)
     protected float xpGain = 1;    //szorzo a jatekos altal felvett tapasztalati pontokra 
     protected int luck = 0;        //befolyasolja a fejlesztesi valasztasok soran elerheto opciok minoseget es egy picit megnoveli a kiteres eselyet is
+    protected int ammoCapacityBonus = 0, ammoPenetrationBonus = 0; 
 
     protected int maxAmmo; // TODO majd ki kell torolni
 
@@ -45,22 +46,22 @@ public abstract class GenericPlayer : MonoBehaviour
         speed_bonus += bonus;
     }
 
-    public float GetFirerate() // TODO ezt majd atkell tenni csak bonuszra
+    public float GetFirerateBonus()
     {
-        return firerate_base * firerate_bonus / 100f;
+        return firerate_bonus;
     }
     public void AddFirerateBonus(int bonus)
     {
-        firerate_bonus += bonus;
+        firerate_bonus -= bonus;
     }
 
-    public float GetReload() // TODO ezt majd atkell tenni csak bonuszra
+    public float GetReloadBonus()
     {
-        return reload_base * reload_bonus / 100f;
+        return reload_bonus;
     }
     public void AddReloadBonus(int bonus)
     {
-        reload_bonus += bonus;
+        reload_bonus -= bonus;
     }
 
     public float GetHeal()
@@ -96,7 +97,6 @@ public abstract class GenericPlayer : MonoBehaviour
         {
             dodge = 100;
         }
-        
     }
 
     public float GetXpGain()
@@ -115,6 +115,24 @@ public abstract class GenericPlayer : MonoBehaviour
     public void AddLuckBonus(int bonus)
     {
         luck += bonus;
+    }
+
+    public int GetAmmoCapacityBonus()
+    {
+        return ammoCapacityBonus;
+    }
+    public void AddAmmoCapacityBonus(int bonus)
+    {
+        ammoCapacityBonus += bonus;
+    }
+
+    public int GetAmmoPenetrationBonus()
+    {
+        return ammoPenetrationBonus;
+    }
+    public void AddAmmoPenetraionBonus(int bonus)
+    {
+        ammoPenetrationBonus += bonus;
     }
 
     public void AddBoostByName(string statName, int bonus)
@@ -148,6 +166,12 @@ public abstract class GenericPlayer : MonoBehaviour
             case "luck":
                 AddLuckBonus(bonus);
                 break;
+            case "ammo capacity":
+                AddAmmoCapacityBonus(bonus);
+                break;
+            case "ammo penetration":
+                AddAmmoPenetraionBonus(bonus);
+                break;
             default:
                 Debug.LogError("Nem letezeo player statisztika kerult novelesre. Keresett statisztika: " + statName);
                 break;
@@ -163,6 +187,7 @@ public abstract class GenericPlayer : MonoBehaviour
     public float currentHp;
     public float abilityCdTime;
     public bool abilityOnCd = false;
+    public GenericWeapon weapon;
 
     [SerializeField]
     private GameObject dodgeTextPrefab;
@@ -195,7 +220,7 @@ public abstract class GenericPlayer : MonoBehaviour
         currentAmmo = maxAmmo;
         currentHp = GetHp();
 
-        StartCoroutine(Shoot());
+        // StartCoroutine(Shoot());
         StartCoroutine(Heal());
     }
 
@@ -234,29 +259,29 @@ public abstract class GenericPlayer : MonoBehaviour
         }
     }
 
-    IEnumerator Shoot()
-    {
-        while (true)
-        {
-            if (currentAmmo == 0)
-            {
-                float reload = GetReload();
-                yield return new WaitForSeconds(reload);
+    // IEnumerator Shoot()
+    // {
+    //     while (true)
+    //     {
+    //         if (currentAmmo == 0)
+    //         {
+    //             float reload = GetReload();
+    //             yield return new WaitForSeconds(reload);
 
-                currentAmmo = maxAmmo;
-            } else
-            {
-                yield return new WaitForSeconds(GetFirerate());
-            }
+    //             currentAmmo = maxAmmo;
+    //         } else
+    //         {
+    //             yield return new WaitForSeconds(GetFirerate());
+    //         }
             
-            Vector2 posDiff = crosshair.transform.position - transform.position;
-            float angle = Mathf.Atan2(posDiff.y, posDiff.x) * Mathf.Rad2Deg;
+    //         Vector2 posDiff = crosshair.transform.position - transform.position;
+    //         float angle = Mathf.Atan2(posDiff.y, posDiff.x) * Mathf.Rad2Deg;
 
-            Bullet bullet = Instantiate(bulletSprite, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)).GetComponent<Bullet>();
-            currentAmmo--;
-            bullet.damage *= GetDamageBonus() / 100.0f;
-        }
-    }
+    //         Bullet bullet = Instantiate(bulletSprite, transform.position, Quaternion.AngleAxis(angle, Vector3.forward)).GetComponent<Bullet>();
+    //         currentAmmo--;
+    //         bullet.damage *= GetDamageBonus() / 100.0f;
+    //     }
+    // }
 
     IEnumerator Heal() {
         while (true) {

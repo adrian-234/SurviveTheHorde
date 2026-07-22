@@ -17,6 +17,7 @@ public class DataManager : MonoBehaviour
 
     private static DataManager instance;
     public int selectedCharacterId;
+    public int selectedWeaponId;
     private int coins = 0;
 
     void Start()

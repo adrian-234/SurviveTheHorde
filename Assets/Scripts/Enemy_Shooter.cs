@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class Enemy_Shooter : GenericEnemy
 {
@@ -9,13 +8,16 @@ public class Enemy_Shooter : GenericEnemy
     public float minPlayerDist;
     private bool inDeadzone = false; 
     private float deadzone = 0.5f;
+    private Coroutine shootCoroutine;
+    private WaitForSeconds _shootCd;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         base.Start();
 
-        StartCoroutine(Shoot());
+        _shootCd = new(shootCd);
+        shootCoroutine = StartCoroutine(Shoot());
     }
 
     // Update is called once per frame
@@ -59,7 +61,19 @@ public class Enemy_Shooter : GenericEnemy
 
             Instantiate(projectile, transform.position, Quaternion.AngleAxis(angle, Vector3.forward));
 
-            yield return new WaitForSeconds(shootCd);
+            yield return _shootCd;
         }
+    }
+
+    public override void Freeze(float time)
+    {
+        StopCoroutine(shootCoroutine);
+        base.Freeze(time);
+    }
+
+    protected override IEnumerator ResetFreeze(float time, float speed)
+    {
+        yield return base.ResetFreeze(time, speed);
+        shootCoroutine = StartCoroutine(Shoot());
     }
 }
